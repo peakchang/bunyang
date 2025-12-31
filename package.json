@@ -1,0 +1,16 @@
+{
+  "name": "bunyang",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:site-a": "pnpm --filter @sites/site-a dev",
+    "dev:site-b": "pnpm --filter @sites/site-b dev",
+    "dev:site-c": "pnpm --filter @sites/site-c dev",
+    "dev:api": "pnpm --filter @api/server dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.25.0"
+}

@@ -1,0 +1,1 @@
+export const gcs_img = "https://storage.googleapis.com/withby-site"

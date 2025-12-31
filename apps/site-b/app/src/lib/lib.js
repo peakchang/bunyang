@@ -1,0 +1,27 @@
+import { gcs_img } from "$lib/const";
+import { back_api, back_api_origin } from "$core/const";
+
+// 백그라운드 스타일은 그냥 여기서 빼버리자 ㅋㅋ
+export function setImg(imgUrl) {
+    // 백그라운드 이미지가 없으면 바로 리턴
+    if (!imgUrl) {
+        return;
+    }
+    let setImgUrl = "";
+
+    try {
+        // 포함 여부에 따라 순차적으로 처리
+        if (imgUrl.includes("http")) {
+            setImgUrl = imgUrl;
+        } else if (imgUrl.includes("img")) {
+            setImgUrl = `${back_api_origin}${imgUrl}`;
+        } else {
+            setImgUrl = `${gcs_img}/${imgUrl}`;
+        }
+    } catch (error) {
+
+    }
+
+
+    return setImgUrl;
+}

@@ -1,0 +1,32 @@
+{
+	"name": "@sites/site-a",
+	"private": true,
+	"version": "0.0.1",
+	"type": "module",
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"prepare": "svelte-kit sync || echo ''"
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-auto": "^7.0.0",
+		"@sveltejs/kit": "^2.49.1",
+		"@sveltejs/vite-plugin-svelte": "^6.2.1",
+		"autoprefixer": "^10.4.23",
+		"daisyui": "^4.12.24",
+		"postcss": "^8.5.6",
+		"svelte": "^5.45.6",
+		"tailwindcss": "3.4.13",
+		"vite": "^7.2.6"
+	},
+	"dependencies": {
+		"@shared/core": "workspace:*",
+		"@sveltejs/adapter-node": "^5.4.0",
+		"add": "^2.0.6",
+		"axios": "^1.13.2",
+		"browser-image-compression": "^2.0.2",
+		"moment-timezone": "^0.6.0",
+		"sortablejs": "^1.15.6"
+	}
+}

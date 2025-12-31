@@ -1,0 +1,10 @@
+packages:
+  - apps/*/app
+  - packages/*
+
+ignoredBuiltDependencies:
+  - bcrypt
+
+onlyBuiltDependencies:
+  - esbuild
+  - '@tailwindcss/oxide'
