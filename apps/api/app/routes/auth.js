@@ -166,7 +166,6 @@ authRouter.post("/login", async (req, res) => {
                     domain: '.withby.kr',
                     sameSite: "lax",  // 도메인 다를 때는 "none" + secure:true
                     path: "/",        // 전체 경로에서 사용
-                    maxAge: 1000 * 5
                 });
 
                 return res.json({ token });
