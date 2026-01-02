@@ -350,23 +350,24 @@ minisiteRouter.post('/load_land_minisite', async (req, res) => {
     let onePageCount = 15;
     const nowPage = body.nowPage
 
-    console.log(nowPage);
-
     try {
         const getLandMinisiteCountQuery = "SELECT count(*) AS m1Count FROM land";
         const [countRows] = await sql_con.promise().query(getLandMinisiteCountQuery);
         allCount = countRows[0].m1Count;
         allPage = Math.ceil(allCount / onePageCount);
         const startCount = (nowPage - 1) * onePageCount;
-        console.log(`allCount : ${allCount}`);
-        console.log(`allPage : ${allPage}`);
-        console.log(startCount);
-
-
 
         const getLandMinisiteQuery = `SELECT * FROM land ORDER BY ld_id DESC LIMIT ${startCount}, ${onePageCount}`;
         const [landMiniSiteRows] = await sql_con.promise().query(getLandMinisiteQuery);
         land_minisite_data = landMiniSiteRows;
+
+        for (let i = 0; i < land_minisite_data.length; i++) {
+            const data = land_minisite_data[i];
+            const getDbCountQuery = `SELECT count(*) AS dbcount FROM application_form WHERE af_form_name = ? AND af_form_type_in = ?`
+            const [getDbCount] = await sql_con.promise().query(getDbCountQuery, [data.ld_site, 'subdomain']);
+            land_minisite_data[i]['db_count'] = getDbCount[0]['dbcount']
+        }
+
     } catch (err) {
         console.error(err.message);
     }

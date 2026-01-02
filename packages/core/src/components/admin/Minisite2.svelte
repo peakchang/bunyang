@@ -29,6 +29,9 @@
         nowPage = $page.url.searchParams.get("page") || 1;
     });
 
+    console.log(mDatas);
+    
+
     // 현장들 변경할때 쓰는 변수
     let filterKeyword = $state("");
     let siteList = $state([]);
@@ -206,6 +209,7 @@
                 </th>
                 <th class="in-th text-xs md:text-sm">현장</th>
                 <th class="in-th text-xs md:text-sm">조회수</th>
+                <th class="in-th text-xs md:text-sm">양식카운트</th>
                 <th class="in-th text-xs md:text-sm">콜카운트</th>
                 <th class="in-th text-xs md:text-sm">문자카운트</th>
             </tr>
@@ -384,11 +388,15 @@
                         {mDatas[idx]["ld_visit_count"]}
                     </td>
                     <td class="in-td text-center">
+                        {mDatas[idx]["db_count"]}
+                    </td>
+                    <td class="in-td text-center">
                         {mDatas[idx]["ld_call_clickcount"]}
                     </td>
                     <td class="in-td text-center">
                         {mDatas[idx]["ld_sms_clickcount"]}
                     </td>
+                    
                 </tr>
             {/each}
             <tr></tr>

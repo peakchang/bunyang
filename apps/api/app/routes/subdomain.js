@@ -570,7 +570,7 @@ subdomainRouter.post('/update_customer', async (req, res, next) => {
         // DB 입력하기~~~
         const insertCustomerQuery = `INSERT INTO application_form (af_form_name, af_form_type_in, af_form_location${addQuery}, af_created_at) VALUES (?,?,?,${placeholders})`;
 
-        await sql_con.promise().query(insertCustomerQuery, [body.siteName, "분양", "DB", ...addValues]);
+        await sql_con.promise().query(insertCustomerQuery, [body.siteName, "subdomain", "DB", ...addValues]);
     } catch (error) {
         console.error(error.message);
     }
