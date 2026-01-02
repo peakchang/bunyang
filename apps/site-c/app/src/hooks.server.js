@@ -11,6 +11,8 @@ export async function handle({ event, resolve }) {
     console.log(`refreshToken : ${refreshToken}`);
     
     const cookieHeader = event.request.headers.get('cookie') || '';
+    console.log(`cookieHeader : ${cookieHeader}`);
+    
     if (refreshToken) {
         try {
             const res = await axios.get(`${back_api}/auth/auth_chk_token`, {
