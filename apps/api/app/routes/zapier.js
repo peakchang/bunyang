@@ -20,6 +20,9 @@ zapierRouter.get('/richby', (req, res) => {
 })
 
 zapierRouter.post('/withby', async (req, res) => {
+    res.send('gojdsjfosdkfsodkfoskdf')
+})
+zapierRouter.post('/withby', async (req, res) => {
     const body = req.body;
     console.log('Zapier POST 요청 받음---------------------------------------------------------------');
     console.log(body);
