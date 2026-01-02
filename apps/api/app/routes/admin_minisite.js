@@ -363,8 +363,11 @@ minisiteRouter.post('/load_land_minisite', async (req, res) => {
 
         for (let i = 0; i < land_minisite_data.length; i++) {
             const data = land_minisite_data[i];
-            const getDbCountQuery = `SELECT count(*) AS dbcount FROM application_form WHERE af_form_name = ? AND af_form_type_in = ?`
-            const [getDbCount] = await sql_con.promise().query(getDbCountQuery, [data.ld_site, 'subdomain']);
+            // const getDbCountQuery = `SELECT count(*) AS dbcount FROM application_form WHERE af_form_name = ? AND af_form_type_in = ?`
+            // const [getDbCount] = await sql_con.promise().query(getDbCountQuery, [data.ld_site, 'subdomain']);
+
+            const getDbCountQuery = `SELECT count(*) AS dbcount FROM application_form WHERE af_form_name = ?`
+            const [getDbCount] = await sql_con.promise().query(getDbCountQuery, [data.ld_site]);
             land_minisite_data[i]['db_count'] = getDbCount[0]['dbcount']
         }
 
