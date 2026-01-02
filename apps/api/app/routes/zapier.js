@@ -9,6 +9,11 @@ import { dirname } from 'path';
 
 const zapierRouter = express.Router();
 
+function isISODate(str) {
+    const regex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}([+-]\d{4}|Z)$/;
+    return regex.test(str);
+}
+
 zapierRouter.get('/topby', (req, res) => {
 
     res.send('asldfjalisjdfliajsdf')
