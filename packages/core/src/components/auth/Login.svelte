@@ -67,7 +67,7 @@
 
 <div id="container-wrapper">
     <div class="container">
-        <h2 class="text-2xl">탑분양 로그인</h2>
+        <h2 class="text-2xl">위드분양 로그인</h2>
         <form on:submit={loginFormSubmit}>
             <div class="input-group">
                 <label for="username">아이디</label>
