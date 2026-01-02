@@ -1,5 +1,6 @@
 import express from "express";
 import { sql_con } from '../back-lib/db.js'
+import { mailSender } from "../back-lib/lib.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import moment from "moment-timezone";
