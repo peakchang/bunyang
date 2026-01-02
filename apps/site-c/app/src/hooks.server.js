@@ -39,7 +39,7 @@ export async function handle({ event, resolve }) {
 
 
     } else {
-        event.cookies.delete('tk', { path: '/' });
+        // event.cookies.delete('tk', { path: '/' });
     }
 
     // 클라이언트 측으로 값을 전달
