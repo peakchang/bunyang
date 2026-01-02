@@ -19,7 +19,7 @@ zapierRouter.get('/richby', (req, res) => {
     res.send('asldfjalisjdfliajsdf')
 })
 
-zapierRouter.post('/withby', async (req, res) => {
+zapierRouter.get('/withby', async (req, res) => {
     res.send('gojdsjfosdkfsodkfoskdf')
 })
 zapierRouter.post('/withby', async (req, res) => {
