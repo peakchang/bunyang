@@ -188,12 +188,21 @@ authRouter.post("/login", async (req, res) => {
                 // 개발용
                 // res.cookie("tk", token, { httpOnly: true, secure: false, sameSite: 'lax' });
 
+                let setDomain = ""
+
+                if (process.env.GCS_BUCKET_NAME.includes('adpeak')) {
+                    setDomain = '.adpeak.kr'
+                } else if (process.env.GCS_BUCKET_NAME.includes('withby')) {
+                    setDomain = '.withby.kr'
+                } else {
+                    setDomain = '.richby.co.kr'
+                }
+
                 // 서비스용
                 res.cookie("tk", token, {
                     httpOnly: true,   // JS 접근 불가 → XSS 방지
                     secure: true,    // HTTPS에서만(운영은 true), 로컬개발은 false
-                    // domain: '.adpeak.kr',
-                    domain: '.withby.kr',
+                    domain: setDomain,
                     sameSite: "lax",  // 도메인 다를 때는 "none" + secure:true
                     path: "/",        // 전체 경로에서 사용
                 });
