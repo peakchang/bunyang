@@ -43,6 +43,8 @@ authRouter.get("/auth_chk_token", async (req, res) => {
     let userInfo = {}
 
     const cookies = req.cookies
+    console.log(cookies);
+
 
     try {
 
@@ -58,6 +60,10 @@ authRouter.get("/auth_chk_token", async (req, res) => {
                 email: userInfoRow[0].user_email,
                 rate: userInfoRow[0].rate
             }
+            console.log("userInfo");
+
+            console.log(userInfo);
+
             return res.status(200).json({ userInfo })
         } else {
             return res.status(400).json({ message: '불러오기 실패' })
@@ -165,7 +171,7 @@ authRouter.post("/login", async (req, res) => {
 
                 console.log("33333");
                 console.log(userInfo);
-                
+
 
                 // 액세스 토큰과 리프레쉬 토큰 발행
                 const token = jwt.sign({ id: userInfo.id }, SECRET_KEY, { expiresIn: "7d" });

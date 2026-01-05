@@ -14,6 +14,8 @@ export async function handle({ event, resolve }) {
     console.log(`cookieHeader : ${cookieHeader}`);
 
     if (refreshToken) {
+        console.log(`refreshToken 있음!!`);
+        
         try {
             const res = await axios.get(`${back_api}/auth/auth_chk_token`, {
                 headers: {
@@ -22,6 +24,8 @@ export async function handle({ event, resolve }) {
             });
 
             userInfo = res.data.userInfo
+            console.log(userInfo);
+            
         } catch (error) {
             console.error(error.message);
         }
