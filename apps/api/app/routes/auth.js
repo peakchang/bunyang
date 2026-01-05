@@ -40,8 +40,6 @@ const authRouter = express.Router();
 
 authRouter.get("/auth_chk_token", async (req, res) => {
 
-    console.log('토큰 체크 들어는 와?!');
-    
     let userInfo = {}
 
     const cookies = req.cookies
@@ -168,16 +166,16 @@ authRouter.post("/login", async (req, res) => {
                 // }
 
                 // 개발용
-                res.cookie("tk", token, { httpOnly: true, secure: false, sameSite: 'lax' });
+                // res.cookie("tk", token, { httpOnly: true, secure: false, sameSite: 'lax' });
 
                 // 서비스용
-                // res.cookie("tk", token, {
-                //     httpOnly: true,   // JS 접근 불가 → XSS 방지
-                //     secure: true,    // HTTPS에서만(운영은 true), 로컬개발은 false
-                //     domain: '.withby.kr',
-                //     sameSite: "lax",  // 도메인 다를 때는 "none" + secure:true
-                //     path: "/",        // 전체 경로에서 사용
-                // });
+                res.cookie("tk", token, {
+                    httpOnly: true,   // JS 접근 불가 → XSS 방지
+                    secure: true,    // HTTPS에서만(운영은 true), 로컬개발은 false
+                    domain: '.withby.kr',
+                    sameSite: "lax",  // 도메인 다를 때는 "none" + secure:true
+                    path: "/",        // 전체 경로에서 사용
+                });
 
                 return res.json({ token });
 
