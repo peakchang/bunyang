@@ -164,6 +164,8 @@ authRouter.post("/login", async (req, res) => {
             if (pwdChkBool) {
 
                 console.log("33333");
+                console.log(userInfo);
+                
 
                 // 액세스 토큰과 리프레쉬 토큰 발행
                 const token = jwt.sign({ id: userInfo.id }, SECRET_KEY, { expiresIn: "7d" });

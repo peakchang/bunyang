@@ -9,12 +9,12 @@
 
     let siteName = $state("");
 
-    if(import.meta.env.VITE_BUCKET.includes('adpeak')){
-        siteName = "탑분양"
-    }else if(import.meta.env.VITE_BUCKET.includes('with')){
-        siteName = "위드분양"
-    }else{
-        siteName = "리치분양"
+    if (import.meta.env.VITE_BUCKET.includes("adpeak")) {
+        siteName = "탑분양";
+    } else if (import.meta.env.VITE_BUCKET.includes("with")) {
+        siteName = "위드분양";
+    } else {
+        siteName = "리치분양";
     }
 
     let userId = $state("");
@@ -54,6 +54,7 @@
                 { withCredentials: true },
             );
 
+            console.log("res.data");
             console.log(res.data);
 
             if (res.status) {
