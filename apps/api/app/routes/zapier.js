@@ -39,6 +39,14 @@ zapierRouter.post('/withby', async (req, res) => {
         dbForm: body.form_name,
     }
 
+    try {
+        const jsonStringData = JSON.stringify(body)
+        const jsonInsertQuery = "INSERT INTO webhookdatas (webhookdata) VALUES (?)";
+        await sql_con.promise().query(jsonInsertQuery, [jsonStringData]);
+    } catch (error) {
+        
+    }
+
     for (let i = 1; i <= 4; i++) {
         for (const key in body) {
             if (key.includes(`etc${i}`)) {
