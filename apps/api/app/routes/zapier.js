@@ -44,18 +44,27 @@ zapierRouter.post('/withby', async (req, res) => {
         const jsonInsertQuery = "INSERT INTO webhookdatas (webhookdata) VALUES (?)";
         await sql_con.promise().query(jsonInsertQuery, [jsonStringData]);
     } catch (error) {
-        
+
     }
 
     for (let i = 1; i <= 4; i++) {
         for (const key in body) {
-            if (key.includes(`etc${i}`)) {
+            
+            if (key.includes(`etc`)) {
                 if (isISODate(body[key])) {
                     dbData[`etc${i}`] = moment(body[key]).format('YYYY-MM-DD HH:mm:ss')
                 } else {
                     dbData[`etc${i}`] = body[key];
                 }
             }
+            
+            // if (key.includes(`etc${i}`)) {
+            //     if (isISODate(body[key])) {
+            //         dbData[`etc${i}`] = moment(body[key]).format('YYYY-MM-DD HH:mm:ss')
+            //     } else {
+            //         dbData[`etc${i}`] = body[key];
+            //     }
+            // }
 
             if (key.includes('phone_number')) {
                 dbData['dbPhone'] = body[key];
