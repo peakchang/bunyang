@@ -36,8 +36,6 @@ const imageUpload = multer({
 // 이미지 업로드시 
 imageRouter.post('/gcs_upload_single', imageUpload.single('onimg'), async (req, res, next) => {
 
-
-
     let saveUrl = ""
     const body = req.body;
     const { type, folder } = req.body
@@ -82,7 +80,7 @@ imageRouter.post('/gcs_upload_single', imageUpload.single('onimg'), async (req, 
         blobStream.end(req.file.buffer);
 
     } catch (error) {
-        console.error('서버 에러:', error);
+        console.error('서버 에러:', error.message);
         res.status(500).json({ error: '서버 에러 발생' });
     }
 })
@@ -160,7 +158,7 @@ imageRouter.post('/gcs_upload_multiple', imageUpload.array('onimg', 10), async (
         });
 
     } catch (error) {
-        console.error('서버 에러:', error);
+        console.error('서버 에러:', error.message);
         res.status(500).json({ error: '서버 에러 발생', details: error.message });
     }
 });
@@ -184,6 +182,8 @@ imageRouter.post('/delete_gcs_img', async (req, res, next) => {
                 console.error(err);
             })
         } catch (error) {
+            console.error(error.message);
+
             status = false
             return res.status(200).json({ status })
         }
@@ -200,6 +200,8 @@ imageRouter.post('/delete_gcs_img', async (req, res, next) => {
             })
 
         } catch (error) {
+            console.error(error.message);
+
             status = false
             return res.status(200).json({ status })
         }
