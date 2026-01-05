@@ -43,7 +43,10 @@
                 },
                 { withCredentials: true },
             );
-            if (res.status === 200) {
+
+            console.log(res.data);
+
+            if (res.status) {
                 const moveUrl = $page.url.searchParams.get("url");
                 console.log(moveUrl);
 
