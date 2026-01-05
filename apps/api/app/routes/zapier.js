@@ -17,6 +17,10 @@ function isISODate(str) {
     return regex.test(str);
 }
 
+zapierRouter.get('/topby', async (req, res) => {
+    res.send('gogogodasfe;lfklwkf')
+})
+
 zapierRouter.post('/topby', async (req, res) => {
     console.log('zapier 진입!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
 
