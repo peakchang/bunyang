@@ -47,20 +47,18 @@ zapierRouter.post('/topby', async (req, res) => {
 
         const get_form_name = body['form_name']
 
-        if (get_form_name.includes('rich') || get_form_name.includes('RICH') || get_form_name.includes('리치')) {
-            try {
-                const result = await axios.post('https://richby.co.kr/zapier', body)
-                console.log(`리치로 발송 상태! : ${result.status}`);
+        // if (get_form_name.includes('rich') || get_form_name.includes('RICH') || get_form_name.includes('리치')) {
+        //     try {
+        //         const result = await axios.post('https://richby.co.kr/zapier', body)
+        //         console.log(`리치로 발송 상태! : ${result.status}`);
 
-                return res.sendStatus(200);
-            } catch (error) {
-                return res.sendStatus(200);
-            }
-        }
+        //         return res.sendStatus(200);
+        //     } catch (error) {
+        //         return res.sendStatus(200);
+        //     }
+        // }
 
         var reFormName = get_form_name.replace(/[a-zA-Z\(\)\-\s]/g, '')
-
-        console.log(reFormName);
 
         // 조회 먼저 해 보고 만약 기존 DB와 겹치면 패스하기
 
@@ -125,7 +123,6 @@ zapierRouter.post('/topby', async (req, res) => {
                 addEtcMessage = addEtcMessage + `// 기타 정보${idx} : ${body[key]}`
             }
         }
-        console.log(addEtcMessage);
 
         const values = [reFormName, '분양', 'FB', body['raw__full_name'], get_phone, '', nowStr]
 
@@ -193,10 +190,6 @@ zapierRouter.post('/topby', async (req, res) => {
 
                 if (!sendStatus) {
                     const resMessage = `탑분양 고객 인입 안내! ${getSiteInfo.sl_site_name} 현장 / ${dbName}님 접수되었습니다! 고객 번호 : ${receiverStr}`
-                    console.log('문자 발송 부분!!!');
-                    console.log(`receiver : ${managerPhone}`);
-                    console.log(`msg : ${resMessage}`);
-                    console.log(`글자 수 : ${resMessage.length}`);
 
                     req.body = {
                         sender: '010-3124-1105',
@@ -207,7 +200,6 @@ zapierRouter.post('/topby', async (req, res) => {
 
                     try {
                         const aligo_res = await aligoapi.send(req, AuthData)
-                        console.log(`알리고 발송 : ${aligo_res.message}`);
 
                     } catch (err) {
                         console.error(err.message);
@@ -400,15 +392,10 @@ zapierRouter.post('/withby', async (req, res) => {
 
         const values = [reFormName, '분양', 'FB', dbName, get_phone, nowStr]
 
-        console.log(etcInsertStr);
-        console.log(etcValuesStr);
-
 
 
         // 폼 insert 하기!!
         const formInertSql = `INSERT INTO application_form (af_form_name, af_form_type_in, af_form_location, af_mb_name, af_mb_phone ${etcInsertStr}, af_created_at) VALUES ('${reFormName}','분양','FB','${dbName}','${get_phone}' ${etcValuesStr},'${nowStr}');`;
-
-        console.log(formInertSql);
 
 
 
@@ -467,22 +454,16 @@ zapierRouter.post('/withby', async (req, res) => {
         // 매니저한테 알림톡 / 문자 발송
         for (let oo = 0; oo < findUser.length; oo++) {
 
-            console.log('chk1');
+ 
 
             const managerPhone = findUser[oo].user_phone
             if (managerPhone.includes('010')) {
                 customerInfo['ciPhone'] = managerPhone
 
-                console.log('chk2');
                 const resMessage = `탑분양 고객 인입 안내! ${getSiteInfo.sl_site_name} 현장 / ${dbName}님 접수되었습니다! 고객 번호 : ${receiverStr}`
-                // console.log('문자 발송 부분!!!');
-                // console.log(`receiver : ${managerPhone}`);
-                // console.log(`msg : ${resMessage}`);
-                // console.log(`글자 수 : ${resMessage.length}`);
 
                 // 알리고 카톡 발송!!!
                 try {
-                    console.log('chk3');
                     const AuthData = {
                         apikey: process.env.ALIGOKEY,
                         // 이곳에 발급받으신 api key를 입력하세요
@@ -512,10 +493,7 @@ zapierRouter.post('/withby', async (req, res) => {
                                 }]
                             })
                     }
-                    console.log('chk4');
                     const aligo_res = await aligoapi.alimtalkSend(req, AuthData)
-                    console.log('chk5');
-                    console.log(`알리고 발송 : ${aligo_res.message}`);
                 } catch (err) {
                     console.error('알리고 발송 에러 발생');
                     console.error(err.message);
@@ -526,7 +504,6 @@ zapierRouter.post('/withby', async (req, res) => {
         return res.status(200).json({});
 
     } catch (err) {
-        console.log('에러나는거야?');
         console.error(err.message);
         return res.status(400).json({})
     }
