@@ -7,6 +7,16 @@
 
     import axios from "axios";
 
+    let siteName = $state("");
+
+    if(import.meta.env.VITE_BUCKET.includes('adpeak')){
+        siteName = "탑분양"
+    }else if(import.meta.env.VITE_BUCKET.includes('adpeak')){
+        siteName = "위드분양"
+    }else{
+        siteName = "리치분양"
+    }
+
     let userId = $state("");
     let userPwd = $state("");
 
@@ -70,7 +80,7 @@
 
 <div id="container-wrapper">
     <div class="container">
-        <h2 class="text-2xl">위드분양 로그인</h2>
+        <h2 class="text-2xl">{siteName} 로그인</h2>
         <form on:submit={loginFormSubmit}>
             <div class="input-group">
                 <label for="username">아이디</label>
