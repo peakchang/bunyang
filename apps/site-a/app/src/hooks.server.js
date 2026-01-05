@@ -8,7 +8,11 @@ export async function handle({ event, resolve }) {
 
     let userInfo = {}
     const refreshToken = event.cookies.get('tk'); // 쿠키에서 Refresh Token 가져오기
+    console.log(`refreshToken : ${refreshToken}`);
+
     const cookieHeader = event.request.headers.get('cookie') || '';
+    console.log(`cookieHeader : ${cookieHeader}`);
+
     if (refreshToken) {
         try {
             const res = await axios.get(`${back_api}/auth/auth_chk_token`, {
@@ -19,6 +23,7 @@ export async function handle({ event, resolve }) {
 
             userInfo = res.data.userInfo
         } catch (error) {
+            event.cookies.delete('tk', { path: '/' });
             console.error(error.message);
         }
         // const getUserInfoQuery = "SELECT * FROM users WHERE refresh_token = ?";
@@ -33,6 +38,7 @@ export async function handle({ event, resolve }) {
         //     }
         //     console.log(userInfo);
 
+        console.log('hook 불러오기 끝!!!');
 
     } else {
         event.cookies.delete('tk', { path: '/' });

@@ -65,7 +65,6 @@
                     location.href = moveUrl;
                 } else {
                     console.log($user_info);
-
                     goto("/");
                 }
             }
