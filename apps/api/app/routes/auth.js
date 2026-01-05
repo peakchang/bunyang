@@ -193,7 +193,7 @@ authRouter.post("/login", async (req, res) => {
                     httpOnly: true,   // JS 접근 불가 → XSS 방지
                     secure: true,    // HTTPS에서만(운영은 true), 로컬개발은 false
                     // domain: '.adpeak.kr',
-                    omain: '.withby.kr',
+                    domain: '.withby.kr',
                     sameSite: "lax",  // 도메인 다를 때는 "none" + secure:true
                     path: "/",        // 전체 경로에서 사용
                 });
