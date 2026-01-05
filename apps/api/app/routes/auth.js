@@ -50,7 +50,7 @@ authRouter.get("/auth_chk_token", async (req, res) => {
         const [userInfoRow] = await sql_con.promise().query(getUserInfoQuery, [cookies.tk]);
 
         console.log(userInfoRow);
-        
+
         if (userInfoRow.length > 0) {
             userInfo = {
                 id: userInfoRow[0].userid,
@@ -59,12 +59,12 @@ authRouter.get("/auth_chk_token", async (req, res) => {
                 rate: userInfoRow[0].rate
             }
             return res.status(200).json({ userInfo })
-        }else{
+        } else {
             return res.status(400).json({ message: '불러오기 실패' })
         }
     } catch (error) {
         console.log('에러임?!');
-        
+
         return res.status(400).json({ message: '불러오기 실패' })
     }
 
@@ -138,8 +138,14 @@ authRouter.post("/login", async (req, res) => {
 
     const { userid, password } = req.body;
 
+    console.log(`일단 들어오니?! ${userid} / ${password}`);
+
+
 
     try {
+
+        console.log("11111");
+
         // 유저 아이디 있는지 확인
         const getUserInfoQuery = "SELECT * FROM users WHERE userid = ?";
         const [userRows] = await sql_con.promise().query(getUserInfoQuery, [userid]);
@@ -147,11 +153,15 @@ authRouter.post("/login", async (req, res) => {
         // 있으면 작업 GO / 없으면 리턴~
         if (userRows.length > 0) {
 
+            console.log("22222");
+
             // 비밀번호 동일한지 체크
             const userInfo = userRows[0];
             const pwdChkBool = bcrypt.compareSync(password, userInfo.password)
             // 동일하면 GO / 없으면 리턴~
             if (pwdChkBool) {
+
+                console.log("33333");
 
                 // 액세스 토큰과 리프레쉬 토큰 발행
                 const token = jwt.sign({ id: userInfo.id }, SECRET_KEY, { expiresIn: "7d" });
@@ -184,11 +194,13 @@ authRouter.post("/login", async (req, res) => {
             }
 
         } else {
+
+            console.log("에러1111");
             return res.status(400).json({ message: "가입된 아이디가 없습니다." });
         }
-
     } catch (err) {
         console.error(err.message);
+        return res.status(400).json({ message: "에러가 발생 했습니다." });
     }
     return res.json({});
 });
