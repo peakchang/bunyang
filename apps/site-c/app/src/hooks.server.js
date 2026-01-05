@@ -40,7 +40,7 @@ export async function handle({ event, resolve }) {
         console.log('hook 불러오기 끝!!!');
 
     } else {
-        // event.cookies.delete('tk', { path: '/' });
+        event.cookies.delete('tk', { path: '/' });
     }
 
     // 클라이언트 측으로 값을 전달
