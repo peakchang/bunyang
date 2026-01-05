@@ -1,1 +1,1 @@
-export const gcs_img = "https://storage.googleapis.com/withby-site"
+export const gcs_img = `https://storage.googleapis.com/${import.meta.env.VITE_BUCKET}`
