@@ -150,10 +150,12 @@ authRouter.post("/login", async (req, res) => {
         const getUserInfoQuery = "SELECT * FROM users WHERE userid = ?";
         const [userRows] = await sql_con.promise().query(getUserInfoQuery, [userid]);
 
+        console.log("22222");
+
         // 있으면 작업 GO / 없으면 리턴~
         if (userRows.length > 0) {
 
-            console.log("22222");
+            console.log("33333");
 
             // 비밀번호 동일한지 체크
             const userInfo = userRows[0];
@@ -187,18 +189,24 @@ authRouter.post("/login", async (req, res) => {
                     path: "/",        // 전체 경로에서 사용
                 });
 
-                return res.json({ token });
+                console.log("44444");
+
+                return res.status(200).json({ token });
 
             } else {
+
+                console.log("비번 에러11111");
+
                 return res.status(400).json({ message: "비밀번호가 일치하지 않습니다." });
             }
 
         } else {
 
-            console.log("에러1111");
+            console.log("전체 에러1111");
             return res.status(400).json({ message: "가입된 아이디가 없습니다." });
         }
     } catch (err) {
+        console.log("전체 에러 22222");
         console.error(err.message);
         return res.status(400).json({ message: "에러가 발생 했습니다." });
     }
