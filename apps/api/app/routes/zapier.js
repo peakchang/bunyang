@@ -107,17 +107,17 @@ zapierRouter.post('/topby_tiktok', async (req, res) => {
         const findUser = findUserData[0];
 
         // 담당자들 에게 이메일 발송
-        for await (const goUser of findUser) {
-            const mailSubjectManager = `${reFormName} / ${dbName} 고객 DB 접수되었습니다.`;
-            const mailContentManager = `현장 : ${reFormName} / 이름 : ${dbName} / 전화번호 : ${get_phone} ${addEtcMessage}`;
-            mailSender(goUser.user_email, mailSubjectManager, mailContentManager);
-        }
+        // for await (const goUser of findUser) {
+        //     const mailSubjectManager = `${reFormName} / ${dbName} 고객 DB 접수되었습니다.`;
+        //     const mailContentManager = `현장 : ${reFormName} / 이름 : ${dbName} / 전화번호 : ${get_phone} ${addEtcMessage}`;
+        //     mailSender(goUser.user_email, mailSubjectManager, mailContentManager);
+        // }
 
         // 최고관리자에게 이메일 발송
-        const mailSubject = `(탑분양 접수) ${reFormName} 고객명 ${dbName} 접수되었습니다.`;
-        const mailContent = `현장: ${reFormName} / 이름 : ${dbName} / 전화번호 : ${get_phone} ${addEtcMessage}`;
-        mailSender('adpeak@naver.com', mailSubject, mailContent);
-        mailSender('changyong112@naver.com', mailSubject, mailContent);
+        // const mailSubject = `(탑분양 접수) ${reFormName} 고객명 ${dbName} 접수되었습니다.`;
+        // const mailContent = `현장: ${reFormName} / 이름 : ${dbName} / 전화번호 : ${get_phone} ${addEtcMessage}`;
+        // mailSender('adpeak@naver.com', mailSubject, mailContent);
+        // mailSender('changyong112@naver.com', mailSubject, mailContent);
 
         // 현장명 찾기!!!
         const getSiteInfoSql = `SELECT * FROM site_list WHERE sl_site_name = ?`
@@ -304,18 +304,18 @@ zapierRouter.post('/topby', async (req, res) => {
         const findUserData = await sql_con.promise().query(userFindSql);
         const findUser = findUserData[0];
 
-        // 담당자들 에게 이메일 발송
-        for await (const goUser of findUser) {
-            const mailSubjectManager = `${reFormName} / ${body['raw__full_name']} 고객 DB 접수되었습니다.`;
-            const mailContentManager = `현장 : ${reFormName} / 이름 : ${body['raw__full_name']} / 전화번호 : ${get_phone} ${addEtcMessage}`;
-            mailSender(goUser.user_email, mailSubjectManager, mailContentManager);
-        }
+        // // 담당자들 에게 이메일 발송
+        // for await (const goUser of findUser) {
+        //     const mailSubjectManager = `${reFormName} / ${body['raw__full_name']} 고객 DB 접수되었습니다.`;
+        //     const mailContentManager = `현장 : ${reFormName} / 이름 : ${body['raw__full_name']} / 전화번호 : ${get_phone} ${addEtcMessage}`;
+        //     mailSender(goUser.user_email, mailSubjectManager, mailContentManager);
+        // }
 
-        // 최고관리자에게 이메일 발송
-        const mailSubject = `(탑분양 접수) ${reFormName} 고객명 ${body['raw__full_name']} 접수되었습니다.`;
-        const mailContent = `현장: ${reFormName} / 이름 : ${body['raw__full_name']} / 전화번호 : ${get_phone} ${addEtcMessage}`;
-        mailSender('adpeak@naver.com', mailSubject, mailContent);
-        // mailSender('changyong112@naver.com', mailSubject, mailContent);
+        // // 최고관리자에게 이메일 발송
+        // const mailSubject = `(탑분양 접수) ${reFormName} 고객명 ${body['raw__full_name']} 접수되었습니다.`;
+        // const mailContent = `현장: ${reFormName} / 이름 : ${body['raw__full_name']} / 전화번호 : ${get_phone} ${addEtcMessage}`;
+        // mailSender('adpeak@naver.com', mailSubject, mailContent);
+        // // mailSender('changyong112@naver.com', mailSubject, mailContent);
 
         // 현장명 찾기!!!
         const getSiteInfoSql = `SELECT * FROM site_list WHERE sl_site_name = ?`
@@ -586,10 +586,10 @@ zapierRouter.post('/withby', async (req, res) => {
         //     mailSender(goUser.user_email, mailSubjectManager, mailContentManager);
         // }
 
-        // 최고관리자에게 이메일 발송
-        const mailSubject = `(위드분양 접수) ${reFormName} 고객명 ${dbName} 접수되었습니다.`;
-        const mailContent = `현장: ${reFormName} / 이름 : ${dbName} / 전화번호 : ${get_phone} ${addEtcMessage}`;
-        mailSender('adpeak@naver.com', mailSubject, mailContent);
+        // // 최고관리자에게 이메일 발송
+        // const mailSubject = `(위드분양 접수) ${reFormName} 고객명 ${dbName} 접수되었습니다.`;
+        // const mailContent = `현장: ${reFormName} / 이름 : ${dbName} / 전화번호 : ${get_phone} ${addEtcMessage}`;
+        // mailSender('adpeak@naver.com', mailSubject, mailContent);
         // mailSender('changyong112@naver.com', mailSubject, mailContent);
         // mailSender('slkym@naver.com', mailSubject, mailContent);
 
@@ -622,7 +622,7 @@ zapierRouter.post('/withby', async (req, res) => {
 
         // 매니저한테 알림톡 / 문자 발송
         for (let oo = 0; oo < findUser.length; oo++) {
-            
+
             const managerPhone = findUser[oo].user_phone
             if (managerPhone.includes('010')) {
                 customerInfo['ciPhone'] = managerPhone
