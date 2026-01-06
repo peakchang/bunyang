@@ -94,7 +94,7 @@ export function mailSender(reciever, subject, content) {
 }
 
 
-export async function aligoKakaoNotification_formanager(req, customerInfo) {
+export async function aligoKakaoNotification_formanager_top(req, customerInfo) {
 
     // console.log('Kakao Message Send Is Started!!!!!!!!!!!!!!!!');
     // console.log(process.env.ALIGOKEY);
