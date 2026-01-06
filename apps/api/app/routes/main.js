@@ -188,7 +188,7 @@ mainRouter.post('/upload_minisite1_db', async (req, res) => {
                             sender: '010-6628-6651',
                             receiver_1: manager['user_phone'],
                             subject_1: '분양정보 신청고객 알림톡',
-                            message_1: `${body.siteName}고객 유입 알림!\n\n고객명:${body.name}\n연락처:${`${body.phone} ${addSms}`}\n\n※ 상담 대기 상태입니다.\n빠르게 컨택 진행 부탁 드립니다.`,
+                            message_1: `${body.siteName}고객 유입 알림!\n\n고객명:${body.name}\n연락처:${`${body.phone}`}\n\n※ 상담 대기 상태입니다.\n빠르게 컨택 진행 부탁 드립니다.`,
                         }
 
                         const aligo_res = await aligoapi.alimtalkSend(req, AuthData)
