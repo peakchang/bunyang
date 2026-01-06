@@ -35,9 +35,7 @@ mainRouter.post('/send_kakao_and_dbinput', async (req, res, next) => {
     let status = true;
 
     const allData = JSON.parse(req.body.all_data_json);
-
-
-
+    
     for (let i = 0; i < allData.length; i++) {
         const inData = allData[i];
         const location = inData.location;

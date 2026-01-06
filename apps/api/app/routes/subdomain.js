@@ -602,24 +602,24 @@ subdomainRouter.post('/update_customer', async (req, res, next) => {
 
                     console.log(`${manager['user_phone']} 에게 ${body.name} / ${body.phone} 알리고 카톡 발송!!!`);
 
-                    req.body = {
-                        type: 'i',  // 유효시간 타입 코드 // y(년), m(월), d(일), h(시), i(분), s(초)
-                        time: 1, // 유효시간
-                    }
+                    // req.body = {
+                    //     type: 'i',  // 유효시간 타입 코드 // y(년), m(월), d(일), h(시), i(분), s(초)
+                    //     time: 1, // 유효시간
+                    // }
 
-                    const result = await aligoapi.token(req, AuthData);
-                    req.body = {
-                        senderkey: process.env.ALIGO_SENDERKEY,
-                        token: result.token,
-                        tpl_code: 'UA_7717',
-                        sender: '010-6628-6651',
-                        receiver_1: manager['user_phone'],
-                        subject_1: '분양정보 신청고객 알림톡',
-                        message_1: `${body.siteName}고객 유입 알림!\n\n고객명:${body.name}\n연락처:${`${body.phone} ${addSms}`}\n\n※ 상담 대기 상태입니다.\n빠르게 컨택 진행 부탁 드립니다.`,
-                    }
+                    // const result = await aligoapi.token(req, AuthData);
+                    // req.body = {
+                    //     senderkey: process.env.ALIGO_SENDERKEY,
+                    //     token: result.token,
+                    //     tpl_code: 'UA_7717',
+                    //     sender: '010-6628-6651',
+                    //     receiver_1: manager['user_phone'],
+                    //     subject_1: '분양정보 신청고객 알림톡',
+                    //     message_1: `${body.siteName}고객 유입 알림!\n\n고객명:${body.name}\n연락처:${`${body.phone} ${addSms}`}\n\n※ 상담 대기 상태입니다.\n빠르게 컨택 진행 부탁 드립니다.`,
+                    // }
 
-                    const aligo_res = await aligoapi.alimtalkSend(req, AuthData)
-                    console.log(`알리고 발송 : ${aligo_res.message}`);
+                    // const aligo_res = await aligoapi.alimtalkSend(req, AuthData)
+                    // console.log(`알리고 발송 : ${aligo_res.message}`);
                 } catch (err) {
                     console.error(err.message);
 
