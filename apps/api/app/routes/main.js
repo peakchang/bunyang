@@ -16,7 +16,7 @@ mainRouter.post('/chk_ex_file', async (req, res, next) => {
     try {
         const chkDbQuery = `SELECT * FROM application_form WHERE af_mb_phone = ? AND af_form_name LIKE '%${body.form_name}%'`;
         const chkDb = await sql_con.promise().query(chkDbQuery, [body.ph_num])
-        
+
         if (!chkDb[0][0]) {
             chkDbBool = false;
             // const insertChkDb = "INSERT INTO application_form (af_form_name,af_form_type_in,af_mb_name,af_mb_phone) VALUES (?,?,?,?)";
@@ -35,7 +35,7 @@ mainRouter.post('/send_kakao_and_dbinput', async (req, res, next) => {
     let status = true;
 
     const allData = JSON.parse(req.body.all_data_json);
-    
+
     for (let i = 0; i < allData.length; i++) {
         const inData = allData[i];
         const location = inData.location;
@@ -134,6 +134,82 @@ mainRouter.post('/load_minisite_info', async (req, res) => {
     }
 
     res.json({ minisite_data })
+})
+
+
+mainRouter.post('/upload_minisite1_db', async (req, res) => {
+    const body = req.body
+    console.log(body);
+    console.log("********************************");
+
+
+    try {
+        const getQuery = getQueryStr(body, "insert")
+        console.log(getQuery);
+
+
+        const siteDbInsertQuery = `INSERT INTO application_form (${getQuery.str}) VALUES (${getQuery.question})`;
+        console.log(siteDbInsertQuery);
+
+        await sql_con.promise().query(siteDbInsertQuery, getQuery.values);
+
+        const getManagerListQuery = `SELECT * FROM users WHERE manage_estate LIKE '%${body.af_form_name}%'`
+        const [getManagerList] = await sql_con.promise().query(getManagerListQuery);
+
+        for (let i = 0; i < getManagerList.length; i++) {
+            const manager = getManagerList[i];
+
+            
+            const managerPhone = manager.user_phone;
+            // 위드분양 알리고 카톡 발송!!!
+            try {
+                const AuthData = {
+                    apikey: process.env.ALIGOKEY,
+                    // 이곳에 발급받으신 api key를 입력하세요
+                    userid: process.env.ALIGOID,
+                    // 이곳에 userid를 입력하세요
+                }
+                req.body = {
+                    type: 'i',  // 유효시간 타입 코드 // y(년), m(월), d(일), h(시), i(분), s(초)
+                    time: 1, // 유효시간
+                }
+
+                const result = await aligoapi.token(req, AuthData);
+                req.body = {
+                    senderkey: process.env.ALIGO_SENDERKEY,
+                    token: result.token,
+                    tpl_code: 'UA_7459',
+                    sender: '010-6628-6651',
+                    receiver_1: managerPhone,
+                    subject_1: '분양정보 신청고객 알림톡',
+                    message_1: `${customerInfo.ciSite}고객 유입 알림!\n\n고객명:${customerInfo.ciName}\n연락처:${customerInfo.ciReceiver}\n\n※ 상담 대기 상태입니다.\n빠르게 컨택 진행 부탁 드립니다.`,
+                    // 버튼 있을 경우~
+                    button_1:
+                        JSON.stringify({
+                            "button": [{
+                                "name": "채널 추가",
+                                "linkType": "AC"
+                            }]
+                        })
+                }
+                const aligo_res = await aligoapi.alimtalkSend(req, AuthData)
+            } catch (err) {
+                console.error('알리고 발송 에러 발생');
+                console.error(err.message);
+            }
+
+        }
+
+
+
+
+    } catch (error) {
+        console.log('이 부분이 에러?!?!');
+
+        console.error(error.message);
+    }
+
+    res.json({})
 })
 
 mainRouter.get('/load_footer', async (req, res) => {

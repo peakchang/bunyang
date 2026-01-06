@@ -1,6 +1,6 @@
 <script>
     import { page } from "$app/stores";
-    import { setImg } from "$lib/lib"
+    import { setImg } from "$lib/lib";
 
     let { siteData } = $props();
     let minisiteData = $state({});
@@ -13,6 +13,51 @@
     }
 
     let formArea = $state();
+    let formName = $state("");
+    let ph2 = $state("");
+    let ph3 = $state("");
+
+    async function submitForm(e) {
+        e.preventDefault();
+
+        if (!formName) {
+            alert("이름을 입력하세요");
+            return;
+        }
+        if (!ph2) {
+            alert("전화번호 가운데를 입력하세요");
+            return;
+        }
+
+        if (!ph3) {
+            alert("전화번호 마지막을 입력하세요");
+            return;
+        }
+
+        const formPhone = `010${ph2}${ph3}`;
+
+        try {
+            const res = await axios.post(
+                `${back_api}/main/upload_minisite1_db`,
+                {
+                    af_mb_name: formName,
+                    af_mb_phone: formPhone,
+                    af_form_name: minisiteData.hy_manage_site,
+                    af_form_location: "사이트1",
+                },
+            );
+
+            if (res.status == 200) {
+                alert(
+                    "접수가 완료 되었습니다. 담당자가 빠르게 연락 드리도록 하겠습니다.",
+                );
+            }
+        } catch (error) {}
+
+        // af_mb_name
+        // af_mb_phone
+        // af_form_location
+    }
 </script>
 
 <svelte:head></svelte:head>
@@ -130,7 +175,7 @@
         <img src={setImg(minisiteData.hy_main_image)} alt="" />
     </div>
 
-    <form method="post" id="user_form">
+    <form method="post" id="user_form" on:submit={submitForm}>
         <div
             class="my-4 mx-auto border relative py-5 rounded-lg"
             bind:this={formArea}
