@@ -154,54 +154,72 @@ mainRouter.post('/upload_minisite1_db', async (req, res) => {
         await sql_con.promise().query(siteDbInsertQuery, getQuery.values);
 
         const getManagerListQuery = `SELECT * FROM users WHERE manage_estate LIKE '%${body.af_form_name}%'`
-        const [getManagerList] = await sql_con.promise().query(getManagerListQuery);
+        const getManagerList = await sql_con.promise().query(getManagerListQuery);
+        const manager_list = getManagerList[0];
 
-        for (let i = 0; i < getManagerList.length; i++) {
-            const manager = getManagerList[i];
-
-            
-            const managerPhone = manager.user_phone;
-            // 위드분양 알리고 카톡 발송!!!
-            try {
-                const AuthData = {
-                    apikey: process.env.ALIGOKEY,
-                    // 이곳에 발급받으신 api key를 입력하세요
-                    userid: process.env.ALIGOID,
-                    // 이곳에 userid를 입력하세요
+        const AuthData = {
+            apikey: process.env.ALIGOKEY,
+            // 이곳에 발급받으신 api key를 입력하세요
+            userid: process.env.ALIGOID,
+            // 이곳에 userid를 입력하세요
+        }
+        if (manager_list && manager_list.length > 0) {
+            for (let i = 0; i < manager_list.length; i++) {
+                const manager = manager_list[i];
+                let customerInfo = {
+                    ciPhone: manager['user_phone'],
+                    ciSite: body.siteName,
+                    ciName: body.name,
+                    ciReceiver: body.phone
                 }
+                // 알리고 카톡 발송!!!
                 req.body = {
                     type: 'i',  // 유효시간 타입 코드 // y(년), m(월), d(일), h(시), i(분), s(초)
                     time: 1, // 유효시간
                 }
-
                 const result = await aligoapi.token(req, AuthData);
-                req.body = {
-                    senderkey: process.env.ALIGO_SENDERKEY,
-                    token: result.token,
-                    tpl_code: 'UA_7459',
-                    sender: '010-6628-6651',
-                    receiver_1: managerPhone,
-                    subject_1: '분양정보 신청고객 알림톡',
-                    message_1: `${customerInfo.ciSite}고객 유입 알림!\n\n고객명:${customerInfo.ciName}\n연락처:${customerInfo.ciReceiver}\n\n※ 상담 대기 상태입니다.\n빠르게 컨택 진행 부탁 드립니다.`,
-                    // 버튼 있을 경우~
-                    button_1:
-                        JSON.stringify({
-                            "button": [{
-                                "name": "채널 추가",
-                                "linkType": "AC"
-                            }]
-                        })
-                }
-                const aligo_res = await aligoapi.alimtalkSend(req, AuthData)
-            } catch (err) {
-                console.error('알리고 발송 에러 발생');
-                console.error(err.message);
-            }
+                try {
+                    console.log(`${manager['user_phone']} 에게 ${body.name} / ${body.phone} 알리고 카톡 발송!!!`);
+                    if (process.env.SCHEMA == "withby") {
+                        req.body = {
+                            senderkey: process.env.ALIGO_SENDERKEY,
+                            token: result.token,
+                            tpl_code: 'UA_7717',
+                            sender: '010-6628-6651',
+                            receiver_1: manager['user_phone'],
+                            subject_1: '분양정보 신청고객 알림톡',
+                            message_1: `${body.siteName}고객 유입 알림!\n\n고객명:${body.name}\n연락처:${`${body.phone} ${addSms}`}\n\n※ 상담 대기 상태입니다.\n빠르게 컨택 진행 부탁 드립니다.`,
+                        }
 
+                        const aligo_res = await aligoapi.alimtalkSend(req, AuthData)
+                        console.log(`알리고 발송 : ${aligo_res.message}`);
+
+                    } else if (process.env.SCHEMA == "topby") {
+                        req.body = {
+                            senderkey: process.env.ALIGO_SENDERKEY,
+                            token: result.token,
+                            tpl_code: 'TX_0641',
+                            sender: '010-6628-6651',
+                            receiver_1: manager['user_phone'],
+                            subject_1: '분양정보 신청고객 알림톡',
+                            message_1: `고객 접수 안내!\n${customerInfo.ciSite} ${customerInfo.ciName} 접수되었습니다.\n고객 번호 : ${customerInfo.ciReceiver}`,
+                        }
+                    }
+
+                    const aligo_res = await aligoapi.alimtalkSend(req, AuthData)
+                    console.log(`알리고 발송 : ${aligo_res.message}`);
+
+                } catch (err) {
+                    console.error(err.message);
+
+                }
+            }
         }
 
-
-
+        // 고객에게 카톡 발송~~~
+        // const getSiteInfoQuery = "SELECT * FROM site_list WHERE sl_site_name = ?";
+        // const getSiteInfo = await sql_con.promise().query(getSiteInfoQuery, [body.siteName]);
+        // const site_info = getSiteInfo[0][0]
 
     } catch (error) {
         console.log('이 부분이 에러?!?!');
