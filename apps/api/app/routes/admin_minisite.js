@@ -380,14 +380,12 @@ minisiteRouter.post('/load_land_minisite', async (req, res) => {
 
 minisiteRouter.post('/update_minisite_manager', async (req, res) => {
     const body = req.body;
-
     try {
         const updateManageSiteQuery = "UPDATE hy_site SET hy_manage_site = ? WHERE hy_id = ?";
         await sql_con.promise().query(updateManageSiteQuery, [body.get_site, body.hy_id]);
     } catch (error) {
 
     }
-
     res.json({})
 })
 
