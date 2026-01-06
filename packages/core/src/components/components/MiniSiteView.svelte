@@ -194,6 +194,7 @@
                                 name="af_mb_name"
                                 class="w-full border-none rounded-full focus:outline-none"
                                 placeholder="이름을 입력하세요!"
+                                bind:value={formName}
                             />
                         </div>
                     </div>
@@ -215,12 +216,14 @@
                                 type="text"
                                 name="phnum_2"
                                 class="border-none px-4 py-1 rounded-md w-1/3 focus:outline-none"
+                                bind:value={ph2}
                             />
                             <span class="flex items-center">-</span>
                             <input
                                 type="text"
                                 name="phnum_3"
                                 class="border-none px-4 py-1 rounded-md w-1/3 focus:outline-none"
+                                bind:value={ph3}
                             />
                         </div>
                     </div>
