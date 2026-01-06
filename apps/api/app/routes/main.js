@@ -1,7 +1,7 @@
 import express from "express";
 import { sql_con } from '../back-lib/db.js'
 import { getQueryStr, aligoKakaoNotification_formanager_top } from '../back-lib/lib.js';
-
+import aligoapi from 'aligoapi'
 
 const mainRouter = express.Router();
 
