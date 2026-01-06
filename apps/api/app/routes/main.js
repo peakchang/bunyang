@@ -168,9 +168,9 @@ mainRouter.post('/upload_minisite1_db', async (req, res) => {
                 const manager = manager_list[i];
                 let customerInfo = {
                     ciPhone: manager['user_phone'],
-                    ciSite: body.siteName,
-                    ciName: body.name,
-                    ciReceiver: body.phone
+                    ciSite: body.af_form_name,
+                    ciName: body.af_mb_name,
+                    ciReceiver: body.af_mb_phone
                 }
                 // 알리고 카톡 발송!!!
                 req.body = {
@@ -179,7 +179,7 @@ mainRouter.post('/upload_minisite1_db', async (req, res) => {
                 }
                 const result = await aligoapi.token(req, AuthData);
                 try {
-                    console.log(`${manager['user_phone']} 에게 ${body.name} / ${body.phone} 알리고 카톡 발송!!!`);
+                    console.log(`${manager['user_phone']} 에게 ${body.af_mb_name} / ${body.af_mb_phone} 알리고 카톡 발송!!!`);
                     if (process.env.SCHEMA == "withby") {
                         req.body = {
                             senderkey: process.env.ALIGO_SENDERKEY,
@@ -188,7 +188,7 @@ mainRouter.post('/upload_minisite1_db', async (req, res) => {
                             sender: '010-6628-6651',
                             receiver_1: manager['user_phone'],
                             subject_1: '분양정보 신청고객 알림톡',
-                            message_1: `${body.siteName}고객 유입 알림!\n\n고객명:${body.name}\n연락처:${`${body.phone}`}\n\n※ 상담 대기 상태입니다.\n빠르게 컨택 진행 부탁 드립니다.`,
+                            message_1: `${body.af_form_name}고객 유입 알림!\n\n고객명:${body.af_mb_name}\n연락처:${`${body.af_mb_phone}`}\n\n※ 상담 대기 상태입니다.\n빠르게 컨택 진행 부탁 드립니다.`,
                         }
 
                         const aligo_res = await aligoapi.alimtalkSend(req, AuthData)
