@@ -52,7 +52,9 @@
                     "접수가 완료 되었습니다. 담당자가 빠르게 연락 드리도록 하겠습니다.",
                 );
             }
-        } catch (error) {}
+        } catch (error) {
+            console.error(error.message);
+        }
 
         // af_mb_name
         // af_mb_phone
