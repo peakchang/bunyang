@@ -624,7 +624,10 @@ subdomainRouter.post('/update_customer', async (req, res, next) => {
                         console.log(`알리고 발송 : ${aligo_res.message}`);
 
                     } else if (process.env.SCHEMA == "topby") {
-
+                        console.log(manager);
+                        
+                        console.log('알림톡 발송 들어옴?!?!?!');
+                        
                         const customerInfo = {
                             ciName: body.name,
                             ciCompany: '탑분양',
