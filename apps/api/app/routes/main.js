@@ -1,6 +1,6 @@
 import express from "express";
 import { sql_con } from '../back-lib/db.js'
-import { getQueryStr, aligoKakaoNotification_formanager } from '../back-lib/lib.js';
+import { getQueryStr, aligoKakaoNotification_formanager_top } from '../back-lib/lib.js';
 
 
 const mainRouter = express.Router();
@@ -72,7 +72,7 @@ mainRouter.post('/send_kakao_and_dbinput', async (req, res, next) => {
             managerPhone = getManagerPhone[0][0]['user_phone']
 
             var customerInfo = { ciPhone: managerPhone, ciSite: location, ciName: '추가DB', ciReceiver: userData }
-            aligoKakaoNotification_formanager(req, customerInfo)
+            // aligoKakaoNotification_formanager_top(req, customerInfo)
         } catch (error) {
             console.error(error.message);
         }

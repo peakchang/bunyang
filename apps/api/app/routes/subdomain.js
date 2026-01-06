@@ -4,7 +4,7 @@ import path from "path";
 import aligoapi from 'aligoapi'
 import multer from "multer";
 import { sql_con } from '../back-lib/db.js'
-import { getQueryStr, numberToTime, aligoKakaoNotification_formanager, aligoKakaoNotification_detail } from '../back-lib/lib.js';
+import { getQueryStr, numberToTime, aligoKakaoNotification_detail } from '../back-lib/lib.js';
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
