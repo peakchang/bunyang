@@ -220,7 +220,8 @@
                     get_site: getSite,
                 },
             );
-            if (res.statsus == 200) {
+            if (res.status == 200) {
+                alert("담당연결이 수정 되었습니다.");
                 invalidateAll();
             }
         } catch (error) {}

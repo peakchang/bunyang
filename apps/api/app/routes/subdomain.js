@@ -630,16 +630,6 @@ subdomainRouter.post('/update_customer', async (req, res, next) => {
                             subject_1: '분양정보 신청고객 알림톡',
                             message_1: `고객 접수 안내!\n${customerInfo.ciSite} ${customerInfo.ciName} 접수되었습니다.\n고객 번호 : ${customerInfo.ciReceiver}`,
                         }
-                        // const customerInfo = {
-                        //     ciName: body.name,
-                        //     ciCompany: '탑분양',
-                        //     ciSite: body.siteName,
-                        //     ciPhone: manager['user_phone'],
-                        //     ciReceiver: body.phone
-                        // }
-
-                        // aligoKakaoNotification_formanager_top(req, customerInfo)
-                        // // var customerInfo = { ciName: dbName, ciCompany: '탑분양', ciSite: getSiteInfo.sl_site_name, ciSiteLink: siteList, ciReceiver: body.phone }
                     }
 
                     const aligo_res = await aligoapi.alimtalkSend(req, AuthData)
@@ -656,18 +646,6 @@ subdomainRouter.post('/update_customer', async (req, res, next) => {
         // const getSiteInfoQuery = "SELECT * FROM site_list WHERE sl_site_name = ?";
         // const getSiteInfo = await sql_con.promise().query(getSiteInfoQuery, [body.siteName]);
         // const site_info = getSiteInfo[0][0]
-
-        // if (site_info) {
-        //     let sendMessageObj = {
-        //         receiver: body.phone,
-        //         customerName: body.name,
-        //         company: "위드분양",
-        //         siteRealName: site_info['sl_site_realname'],
-        //         smsContent: site_info['sl_sms_content'],
-        //     }
-
-        //     aligoKakaoNotification_detail(req, sendMessageObj)
-        // }
     } catch (error) {
 
     }
