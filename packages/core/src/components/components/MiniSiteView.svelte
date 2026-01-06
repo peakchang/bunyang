@@ -1,6 +1,8 @@
 <script>
     import { page } from "$app/stores";
     import { setImg } from "$lib/lib";
+    import axios from "axios";
+    import { back_api } from "$src/lib/const";
 
     let { siteData } = $props();
     let minisiteData = $state({});
