@@ -196,7 +196,7 @@
                             <input
                                 type="text"
                                 name="af_mb_name"
-                                class="w-full border-none rounded-full focus:outline-none"
+                                class="w-full border-none rounded-full focus:outline-none px-2"
                                 placeholder="이름을 입력하세요!"
                                 bind:value={formName}
                             />
