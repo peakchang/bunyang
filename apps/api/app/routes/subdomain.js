@@ -598,18 +598,15 @@ subdomainRouter.post('/update_customer', async (req, res, next) => {
                 }
                 // aligoKakaoNotification_formanager(req, customerInfo)
                 // 알리고 카톡 발송!!!
-                try {
 
+                req.body = {
+                    type: 'i',  // 유효시간 타입 코드 // y(년), m(월), d(일), h(시), i(분), s(초)
+                    time: 1, // 유효시간
+                }
+                const result = await aligoapi.token(req, AuthData);
+                try {
                     console.log(`${manager['user_phone']} 에게 ${body.name} / ${body.phone} 알리고 카톡 발송!!!`);
                     if (process.env.SCHEMA == "withby") {
-
-                        req.body = {
-                            type: 'i',  // 유효시간 타입 코드 // y(년), m(월), d(일), h(시), i(분), s(초)
-                            time: 1, // 유효시간
-                        }
-
-                        const result = await aligoapi.token(req, AuthData);
-
                         req.body = {
                             senderkey: process.env.ALIGO_SENDERKEY,
                             token: result.token,
@@ -624,21 +621,29 @@ subdomainRouter.post('/update_customer', async (req, res, next) => {
                         console.log(`알리고 발송 : ${aligo_res.message}`);
 
                     } else if (process.env.SCHEMA == "topby") {
-                        console.log(manager);
-                        
-                        console.log('알림톡 발송 들어옴?!?!?!');
-                        
-                        const customerInfo = {
-                            ciName: body.name,
-                            ciCompany: '탑분양',
-                            ciSite: body.siteName,
-                            ciPhone: manager['user_phone'],
-                            ciReceiver: body.phone
+                        req.body = {
+                            senderkey: process.env.ALIGO_SENDERKEY,
+                            token: result.token,
+                            tpl_code: 'TX_0641',
+                            sender: '010-6628-6651',
+                            receiver_1: manager['user_phone'],
+                            subject_1: '분양정보 신청고객 알림톡',
+                            message_1: `고객 접수 안내!\n${customerInfo.ciSite} ${customerInfo.ciName} 접수되었습니다.\n고객 번호 : ${customerInfo.ciReceiver}`,
                         }
+                        // const customerInfo = {
+                        //     ciName: body.name,
+                        //     ciCompany: '탑분양',
+                        //     ciSite: body.siteName,
+                        //     ciPhone: manager['user_phone'],
+                        //     ciReceiver: body.phone
+                        // }
 
-                        aligoKakaoNotification_formanager_top(req, customerInfo)
-                        // var customerInfo = { ciName: dbName, ciCompany: '탑분양', ciSite: getSiteInfo.sl_site_name, ciSiteLink: siteList, ciReceiver: body.phone }
+                        // aligoKakaoNotification_formanager_top(req, customerInfo)
+                        // // var customerInfo = { ciName: dbName, ciCompany: '탑분양', ciSite: getSiteInfo.sl_site_name, ciSiteLink: siteList, ciReceiver: body.phone }
                     }
+
+                    const aligo_res = await aligoapi.alimtalkSend(req, AuthData)
+                    console.log(`알리고 발송 : ${aligo_res.message}`);
 
                 } catch (err) {
                     console.error(err.message);
