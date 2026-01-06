@@ -1,8 +1,8 @@
 <script>
     import axios from "axios";
-    import { back_api } from "$lib/const.js";
+    import { back_api } from "$core/const";
     import { goto } from "$app/navigation";
-    import { user_info } from "$lib/store.js";
+    import { user_info } from "$core/store";
 
     $effect(async () => {
         if ($user_info.id) {
