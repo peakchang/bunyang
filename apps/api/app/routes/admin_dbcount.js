@@ -5,9 +5,6 @@ import moment from "moment-timezone";
 
 const adminDbCount = express.Router();
 
-
-
-
 // chkRateMaster
 adminDbCount.use('/', async (req, res, next) => {
 
@@ -20,17 +17,13 @@ adminDbCount.use('/', async (req, res, next) => {
     const body = req.body;
     const nowPage = Number(body.now_page) || 1;
 
-
-
     // 기본 시작 날짜 구하기 (받은 sd 쿼리값 없으면)
     const today = moment().format('YYYY-MM-DD')
 
     // 기본 끝 날짜 구하기 (받은 ed 쿼리값 없으면)
     const threeDaysAgo = moment().subtract(4, 'days').format('YYYY-MM-DD')
 
-
     // 구하기 구하기!!!
-
     const startSearchDate = body.startDate || threeDaysAgo;
     const endSearchDate = body.endDate || today;
 
@@ -60,9 +53,6 @@ adminDbCount.use('/', async (req, res, next) => {
         site_list = rows;
         page_list = getPaginationArray(nowPage, allPageCount)
 
-
-
-
         for (let i = 0; i < site_list.length; i++) {
             const siteInfo = site_list[i];
             const getSiteDbQuery = `SELECT * FROM application_form WHERE af_form_name = ? ${addFormQuery};`
@@ -84,9 +74,7 @@ adminDbCount.use('/', async (req, res, next) => {
         console.error(err.message);
 
     }
-
-
-
+    
     const dateArrayTemp = getDateRangeArray(startSearchDate, endSearchDate);
     const dateArray = dateArrayTemp.reverse();
 

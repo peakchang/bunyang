@@ -43,15 +43,11 @@ authRouter.get("/auth_chk_token", async (req, res) => {
     let userInfo = {}
 
     const cookies = req.cookies
-    console.log(cookies);
-
 
     try {
 
         const getUserInfoQuery = "SELECT * FROM users WHERE refresh_token = ?";
         const [userInfoRow] = await sql_con.promise().query(getUserInfoQuery, [cookies.tk]);
-
-        console.log(userInfoRow);
 
         if (userInfoRow.length > 0) {
             userInfo = {
@@ -60,17 +56,12 @@ authRouter.get("/auth_chk_token", async (req, res) => {
                 email: userInfoRow[0].user_email,
                 rate: userInfoRow[0].rate
             }
-            console.log("userInfo");
-
-            console.log(userInfo);
 
             return res.status(200).json({ userInfo })
         } else {
             return res.status(400).json({ message: '불러오기 실패' })
         }
     } catch (error) {
-        console.log('에러임?!');
-
         return res.status(400).json({ message: '불러오기 실패' })
     }
 
@@ -144,34 +135,19 @@ authRouter.post("/login", async (req, res) => {
 
     const { userid, password } = req.body;
 
-    console.log(`일단 들어오니?! ${userid} / ${password}`);
-
-
-
     try {
-
-        console.log("11111");
-
         // 유저 아이디 있는지 확인
         const getUserInfoQuery = "SELECT * FROM users WHERE userid = ?";
         const [userRows] = await sql_con.promise().query(getUserInfoQuery, [userid]);
 
-        console.log("22222");
-
         // 있으면 작업 GO / 없으면 리턴~
         if (userRows.length > 0) {
-
-            console.log("33333");
 
             // 비밀번호 동일한지 체크
             const userInfo = userRows[0];
             const pwdChkBool = bcrypt.compareSync(password, userInfo.password)
             // 동일하면 GO / 없으면 리턴~
             if (pwdChkBool) {
-
-                console.log("33333");
-                console.log(userInfo);
-
 
                 // 액세스 토큰과 리프레쉬 토큰 발행
                 const token = jwt.sign({ id: userInfo.id }, SECRET_KEY, { expiresIn: "7d" });
@@ -186,7 +162,7 @@ authRouter.post("/login", async (req, res) => {
                 // }
 
                 // 개발용
-                // res.cookie("tk", token, { httpOnly: true, secure: false, sameSite: 'lax' });
+                res.cookie("tk", token, { httpOnly: true, secure: false, sameSite: 'lax' });
 
                 let setDomain = ""
 
@@ -198,23 +174,18 @@ authRouter.post("/login", async (req, res) => {
                     setDomain = '.richby.co.kr'
                 }
 
-                // 서비스용
-                res.cookie("tk", token, {
-                    httpOnly: true,   // JS 접근 불가 → XSS 방지
-                    secure: true,    // HTTPS에서만(운영은 true), 로컬개발은 false
-                    domain: setDomain,
-                    sameSite: "lax",  // 도메인 다를 때는 "none" + secure:true
-                    path: "/",        // 전체 경로에서 사용
-                });
-
-                console.log("44444");
+                // // 서비스용
+                // res.cookie("tk", token, {
+                //     httpOnly: true,   // JS 접근 불가 → XSS 방지
+                //     secure: true,    // HTTPS에서만(운영은 true), 로컬개발은 false
+                //     domain: setDomain,
+                //     sameSite: "lax",  // 도메인 다를 때는 "none" + secure:true
+                //     path: "/",        // 전체 경로에서 사용
+                // });
 
                 return res.status(200).json({ token });
 
             } else {
-
-                console.log("비번 에러11111");
-
                 return res.status(400).json({ message: "비밀번호가 일치하지 않습니다." });
             }
 

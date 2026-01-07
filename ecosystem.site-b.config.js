@@ -13,7 +13,7 @@ module.exports = {
         },
         {
             name: "site-a",
-            cwd: "./apps/site-a",
+            cwd: "./apps/site-b",
             script: "server.js",   // SvelteKit adapter-node 기준
             exec_mode: "fork",
             instances: 1,
