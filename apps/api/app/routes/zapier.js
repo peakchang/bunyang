@@ -882,6 +882,13 @@ zapierRouter.post('/withby', async (req, res) => {
 
     } catch (err) {
         console.error(err.message);
+        try {
+            const errorInsertQuery = "INSERT INTO webhookdatas (webhookdata) VALUES (?)";
+            await sql_con.promise().query(errorInsertQuery, [err.stack]);
+        } catch (error) {
+
+        }
+
         return res.status(400).json({})
     }
 
