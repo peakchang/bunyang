@@ -162,7 +162,7 @@ authRouter.post("/login", async (req, res) => {
                 // }
 
                 // 개발용
-                res.cookie("tk", token, { httpOnly: true, secure: false, sameSite: 'lax' });
+                // res.cookie("tk", token, { httpOnly: true, secure: false, sameSite: 'lax' });
 
                 let setDomain = ""
 
@@ -174,14 +174,14 @@ authRouter.post("/login", async (req, res) => {
                     setDomain = '.richby.co.kr'
                 }
 
-                // // 서비스용
-                // res.cookie("tk", token, {
-                //     httpOnly: true,   // JS 접근 불가 → XSS 방지
-                //     secure: true,    // HTTPS에서만(운영은 true), 로컬개발은 false
-                //     domain: setDomain,
-                //     sameSite: "lax",  // 도메인 다를 때는 "none" + secure:true
-                //     path: "/",        // 전체 경로에서 사용
-                // });
+                // 서비스용
+                res.cookie("tk", token, {
+                    httpOnly: true,   // JS 접근 불가 → XSS 방지
+                    secure: true,    // HTTPS에서만(운영은 true), 로컬개발은 false
+                    domain: setDomain,
+                    sameSite: "lax",  // 도메인 다를 때는 "none" + secure:true
+                    path: "/",        // 전체 경로에서 사용
+                });
 
                 return res.status(200).json({ token });
 
