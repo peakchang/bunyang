@@ -158,6 +158,10 @@
 
             <button type="submit">로그인</button>
         </form>
+
+        <div class="text-center text-sm text-blue-500" style="margin-top:15px">
+            <a href="/auth/join"> 회원가입 바로가기 </a>
+        </div>
     </div>
 </div>
 
