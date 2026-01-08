@@ -39,6 +39,8 @@
     async function loginFormSubmit(e) {
         e.preventDefault();
         console.log(moveUrl);
+        console.log(back_api);
+        
 
         if (!userId || !userPwd) {
             alert("아이디와 비밀번호를 모두 입력하세요.");

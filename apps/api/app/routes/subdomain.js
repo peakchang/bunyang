@@ -206,7 +206,8 @@ subdomainRouter.post('/copy_site', async (req, res, next) => {
 
         delete insertData.ld_id;
         delete insertData.ld_created_at;
-
+        delete insertData.ld_site;
+        
         delete insertData.ld_visit_count;
         delete insertData.ld_call_clickcount;
         delete insertData.ld_sms_clickcount;
