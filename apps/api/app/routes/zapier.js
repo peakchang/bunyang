@@ -642,13 +642,13 @@ zapierRouter.post('/withby', async (req, res) => {
         dbForm: body.form_name,
     }
 
-    try {
-        const jsonStringData = JSON.stringify(body)
-        const jsonInsertQuery = "INSERT INTO webhookdatas (webhookdata) VALUES (?)";
-        await sql_con.promise().query(jsonInsertQuery, [jsonStringData]);
-    } catch (error) {
+    // try {
+    //     const jsonStringData = JSON.stringify(body)
+    //     const jsonInsertQuery = "INSERT INTO webhookdatas (webhookdata) VALUES (?)";
+    //     await sql_con.promise().query(jsonInsertQuery, [jsonStringData]);
+    // } catch (error) {
 
-    }
+    // }
 
     for (let i = 1; i <= 4; i++) {
         for (const key in body) {
@@ -780,7 +780,7 @@ zapierRouter.post('/withby', async (req, res) => {
 
         // 폼 insert 하기!!
         formInertSql = `INSERT INTO application_form (af_form_name, af_form_type_in, af_form_location, af_mb_name, af_mb_phone ${etcInsertStr}, af_created_at) VALUES ('${reFormName}','분양','FB','${dbName}','${get_phone}' ${etcValuesStr},'${nowStr}');`;
-        
+
         await sql_con.promise().query(formInertSql)
 
 
