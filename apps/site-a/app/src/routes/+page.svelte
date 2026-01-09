@@ -36,7 +36,19 @@
     }
 </script>
 
-<div></div>
+<div class=" max-w-[1080px] mx-auto">
+    <div class="main1">
+        <div class="main1_top_content nanumneo-font font-extrabold">
+            <p>한 현장</p>
+            <p>계약 10건</p>
+        </div>
+        <div class="main1_bottom_content">
+            <div>NO!</div>
+            <div>탑분양을 이용 중 입니다.
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="container">
     <h1 class="headline">
@@ -64,6 +76,32 @@
 </div>
 
 <style>
+    .main1 {
+        background-image: url("/main_img/1.jpg");
+        width: 100%; /* 부모의 가로에 꽉 차게 */
+
+        /* 높이를 지정하지 않아도 aspect-ratio가 높이를 자동으로 계산합니다 */
+        aspect-ratio: 1080 / 1417;
+
+        /* 배경 이미지를 박스 크기에 맞게 조절 */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        font-weight: 600;
+    }
+
+    .main1_top_content {
+        text-align: center;
+        padding-top: 17%;
+        font-size: clamp(4rem, 9vw, 9rem);
+    }
+
+    .main1_bottom_content{
+        text-align: center;
+        margin-top: 15%;
+    }
+
+    /* ************************************************** */
     .container {
         display: flex;
         flex-direction: column;

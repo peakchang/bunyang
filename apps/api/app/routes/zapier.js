@@ -774,13 +774,13 @@ zapierRouter.post('/withby', async (req, res) => {
 
         const values = [reFormName, '분양', 'FB', dbName, get_phone, nowStr]
 
-
+        if (etcValuesStr) {
+            etcValuesStr = etcValuesStr.replace(/'/g, '"');
+        }
 
         // 폼 insert 하기!!
         formInertSql = `INSERT INTO application_form (af_form_name, af_form_type_in, af_form_location, af_mb_name, af_mb_phone ${etcInsertStr}, af_created_at) VALUES ('${reFormName}','분양','FB','${dbName}','${get_phone}' ${etcValuesStr},'${nowStr}');`;
-
-
-
+        
         await sql_con.promise().query(formInertSql)
 
 
