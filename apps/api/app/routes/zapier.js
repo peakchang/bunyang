@@ -679,6 +679,9 @@ zapierRouter.post('/withby', async (req, res) => {
         }
     }
 
+
+    let formInertSql = "";
+
     try {
         const dbName = dbData.dbName
         let get_phone = ""
@@ -774,7 +777,7 @@ zapierRouter.post('/withby', async (req, res) => {
 
 
         // 폼 insert 하기!!
-        const formInertSql = `INSERT INTO application_form (af_form_name, af_form_type_in, af_form_location, af_mb_name, af_mb_phone ${etcInsertStr}, af_created_at) VALUES ('${reFormName}','분양','FB','${dbName}','${get_phone}' ${etcValuesStr},'${nowStr}');`;
+        formInertSql = `INSERT INTO application_form (af_form_name, af_form_type_in, af_form_location, af_mb_name, af_mb_phone ${etcInsertStr}, af_created_at) VALUES ('${reFormName}','분양','FB','${dbName}','${get_phone}' ${etcValuesStr},'${nowStr}');`;
 
 
 
@@ -885,6 +888,11 @@ zapierRouter.post('/withby', async (req, res) => {
         try {
             const errorInsertQuery = "INSERT INTO webhookdatas (webhookdata) VALUES (?)";
             await sql_con.promise().query(errorInsertQuery, [err.stack]);
+
+            if (formInertSql) {
+                const errorInsertQuery = "INSERT INTO webhookdatas (webhookdata) VALUES (?)";
+                await sql_con.promise().query(errorInsertQuery, [formInertSql]);
+            }
         } catch (error) {
 
         }
