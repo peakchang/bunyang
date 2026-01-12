@@ -447,6 +447,8 @@ zapierRouter.post('/richby', async (req, res) => {
             }
         } catch (error) {
             console.error(error.message);
+            console.log('중복 조회 패스!!');
+
         }
 
         // 사이트 리스트에 조회해서 먼저 넣기
