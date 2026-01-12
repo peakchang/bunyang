@@ -490,7 +490,7 @@ zapierRouter.post('/richby', async (req, res) => {
         const values = [reFormName, '분양', 'FB', dbName, get_phone, '', nowStr]
 
         // 폼 insert 하기!!
-        formInertSql = `INSERT INTO application_form (af_form_name, af_form_type_in, af_form_location, af_mb_name, af_mb_phone, af_mb_status ${etcInsertStr}, af_created_at) VALUES (?,?,?,?,?,? ${etcValuesStr},?);`;
+        const formInertSql = `INSERT INTO application_form (af_form_name, af_form_type_in, af_form_location, af_mb_name, af_mb_phone, af_mb_status ${etcInsertStr}, af_created_at) VALUES (?,?,?,?,?,? ${etcValuesStr},?);`;
         await sql_con.promise().query(formInertSql, values)
 
         // 해당 폼네임에 저장된 담당자 리스트 찾기
