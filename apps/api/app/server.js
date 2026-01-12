@@ -40,7 +40,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 
-console.log(__dirname);
+
 
 
 app.use(express.static('public', { ignore: ['favicon.ico'] }));
@@ -89,6 +89,7 @@ app.use('/zapier', zapierRouter);
 
 
 app.use('/chk', (req, res) => {
+    console.log(__dirname);
     res.send('백엔드 생성 완료~~~~~~~~~!!')
 });
 // app.use(handler);
