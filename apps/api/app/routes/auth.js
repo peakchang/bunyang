@@ -134,7 +134,7 @@ authRouter.post("/register", async (req, res) => {
 authRouter.post("/login", async (req, res) => {
 
     console.log('로그인 진입은 해야 할거 아냐?!');
-    
+
 
     const { userid, password } = req.body;
 
@@ -176,10 +176,12 @@ authRouter.post("/login", async (req, res) => {
                     setDomain = '.withby.kr'
                 } else {
                     setDomain = '.richby.co.kr'
+                    console.log(setDomain);
+
                 }
 
                 console.log(process.env.ENV);
-                
+
                 if (process.env.ENV == 'dev') {
                     // 개발용
                     res.cookie("tk", token, { httpOnly: true, secure: false, sameSite: 'lax' });
