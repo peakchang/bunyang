@@ -5,6 +5,7 @@ import { back_api, back_api_origin } from "$core/const";
 export function setImg(imgUrl) {
 
     console.log(imgUrl);
+    console.log(import.meta.env.VITE_BUCKET);
 
     // 백그라운드 이미지가 없으면 바로 리턴
     if (!imgUrl) {
@@ -14,6 +15,9 @@ export function setImg(imgUrl) {
 
     // 포함 여부에 따라 순차적으로 처리
     if (imgUrl.includes("http")) {
+
+
+
         console.log('들어와야지?!?!');
         const u = new URL(imgUrl);
         if (u.hostname.startsWith('api.')) return url;

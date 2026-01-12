@@ -23,7 +23,7 @@ export function setImg(imgUrl) {
         setImgUrl = u.toString();
 
         console.log(setImgUrl);
-
+        
     } else if (imgUrl.includes("subimg")) {
         setImgUrl = `${back_api_origin}${imgUrl}`;
     } else {

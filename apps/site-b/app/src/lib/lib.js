@@ -26,6 +26,8 @@ export function setImg(imgUrl) {
 
     } else if (imgUrl.includes("subimg")) {
         setImgUrl = `${back_api_origin}${imgUrl}`;
+    } else if (imgUrl.includes("img")) {
+        setImgUrl = `https://api.richby.co.kr/img/${imgUrl}`
     } else {
         setImgUrl = `${gcs_img}/${imgUrl}`;
     }
