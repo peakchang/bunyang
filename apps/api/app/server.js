@@ -40,6 +40,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 
+console.log(__dirname);
+
+
 app.use(express.static('public', { ignore: ['favicon.ico'] }));
 app.use('/editor', express.static(path.join(__dirname, 'public/uploads/editor')));
 app.use('/img', express.static(path.join(__dirname, 'public/uploads/image')));
