@@ -502,14 +502,14 @@ zapierRouter.post('/richby', async (req, res) => {
         for await (const goUser of findUser) {
             const mailSubjectManager = `${reFormName} / ${dbName} 고객 DB 접수되었습니다.`;
             const mailContentManager = `현장 : ${reFormName} / 이름 : ${dbName} / 전화번호 : ${get_phone} ${addEtcMessage}`;
-            mailSender.sendEmail(goUser.user_email, mailSubjectManager, mailContentManager);
+            // mailSender(goUser.user_email, mailSubjectManager, mailContentManager);
         }
 
         // 최고관리자에게 이메일 발송
         const mailSubject = `(리치분양 접수) ${reFormName} 고객명 ${dbName} 접수되었습니다.`;
         const mailContent = `현장: ${reFormName} / 이름 : ${dbName} / 전화번호 : ${get_phone} ${addEtcMessage}`;
-        mailSender.sendEmail('adpeak@naver.com', mailSubject, mailContent);
-        // mailSender.sendEmail('changyong112@naver.com', mailSubject, mailContent);
+        // mailSender('adpeak@naver.com', mailSubject, mailContent);
+        // mailSender('changyong112@naver.com', mailSubject, mailContent);
 
         // 현장명 찾기!!!
         const getSiteInfoSql = `SELECT * FROM site_list WHERE sl_site_name = ?`
