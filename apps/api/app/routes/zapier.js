@@ -17,6 +17,10 @@ function isISODate(str) {
     return regex.test(str);
 }
 
+function cleanEtcText(str = "") {
+    return String(str).replace(/[^0-9A-Za-z가-힣'",]+/g, "");
+}
+
 zapierRouter.get('/topby', async (req, res) => {
     res.send('gogogodasfe;lfklwkf')
 })
@@ -737,21 +741,15 @@ zapierRouter.post('/withby', async (req, res) => {
         let etcValuesStr = '';
         let addEtcMessage = '';
 
-        if (dbData.etc1) {
-            etcInsertStr = etcInsertStr + `, af_mb_etc1`;
-            etcValuesStr = etcValuesStr + `, '${dbData.etc1}'`;
-            addEtcMessage = addEtcMessage + `// 기타 정보1 : ${dbData.etc1}`
-        }
-        if (dbData.etc2) {
-            etcInsertStr = etcInsertStr + `, af_mb_etc2`;
-            etcValuesStr = etcValuesStr + `, '${dbData.etc2}'`;
-            addEtcMessage = addEtcMessage + `// 기타 정보2 : ${dbData.etc2}`
-        }
-
-        if (dbData.etc3) {
-            etcInsertStr = etcInsertStr + `, af_mb_etc3`;
-            etcValuesStr = etcValuesStr + `, '${dbData.etc3}'`;
-            addEtcMessage = addEtcMessage + `// 기타 정보3 : ${dbData.etc3}`
+        let prevVal = ""
+        for (let i = 1; i < 4; i++) {
+            const setVal = cleanEtcText(dbData[`etc${i}`]);
+            if (setVal && setVal != prevVal) {
+                etcInsertStr = etcInsertStr + `, af_mb_etc${i}`;
+                etcValuesStr = etcValuesStr + `, '${setVal}'`;
+                addEtcMessage = addEtcMessage + `// 기타 정보1 : ${setVal}`
+            }
+            prevVal = setVal
         }
 
         console.log('etcInsertStr :');
@@ -835,7 +833,7 @@ zapierRouter.post('/withby', async (req, res) => {
 
         var customerInfo = { ciName: resDbName, ciCompany: '위드분양', ciSite: getSiteInfo.sl_site_name, ciSiteLink: siteList, ciReceiver: receiverStr }
 
-        
+
         // 매니저한테 알림톡 / 문자 발송
         for (let oo = 0; oo < findUser.length; oo++) {
 
