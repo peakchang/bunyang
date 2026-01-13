@@ -835,6 +835,7 @@ zapierRouter.post('/withby', async (req, res) => {
 
         var customerInfo = { ciName: resDbName, ciCompany: '위드분양', ciSite: getSiteInfo.sl_site_name, ciSiteLink: siteList, ciReceiver: receiverStr }
 
+        
         // 매니저한테 알림톡 / 문자 발송
         for (let oo = 0; oo < findUser.length; oo++) {
 

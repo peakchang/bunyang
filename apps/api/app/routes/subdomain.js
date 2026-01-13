@@ -207,7 +207,7 @@ subdomainRouter.post('/copy_site', async (req, res, next) => {
         delete insertData.ld_id;
         delete insertData.ld_created_at;
         delete insertData.ld_site;
-        
+
         delete insertData.ld_visit_count;
         delete insertData.ld_call_clickcount;
         delete insertData.ld_sms_clickcount;
@@ -628,6 +628,16 @@ subdomainRouter.post('/update_customer', async (req, res, next) => {
                             receiver_1: manager['user_phone'],
                             subject_1: '분양정보 신청고객 알림톡',
                             message_1: `고객 접수 안내!\n${customerInfo.ciSite} ${customerInfo.ciName} 접수되었습니다.\n고객 번호 : ${customerInfo.ciReceiver}`,
+                        }
+                    } else if (process.env.SCHEMA == "richby") {
+                        req.body = {
+                            senderkey: process.env.ALIGO_SENDERKEY,
+                            token: result.token,
+                            tpl_code: 'TY_7236',
+                            sender: '010-3124-1105',
+                            receiver_1: manager['user_phone'],
+                            subject_1: '분양정보 신청고객 알림톡',
+                            message_1: `고객 유입 안내!\n${customerInfo.ciSite} ${customerInfo.ciName}님 접수되었습니다.\n고객 번호 : ${customerInfo.ciReceiver}`,
                         }
                     }
 
