@@ -64,6 +64,10 @@
 
     // 새로운 현장명을 넣고 선택된 유저와 매치 시킴!!
     async function uploadSiteFunc() {
+        if (!siteUploadKeyword) {
+            alert("현장명을 입력 해주세요!");
+            return;
+        }
         selectedEstate = [...selectedEstate].filter((item) => item !== "");
 
         siteUploadKeyword = siteUploadKeyword.replace(/\s/g, "");
