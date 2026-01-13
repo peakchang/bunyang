@@ -7,6 +7,7 @@
     import { back_api } from "$core/const.js";
     import { user_info } from "$core/store.js";
     import { invalidateAll, goto } from "$app/navigation";
+    import { onMount } from "svelte";
 
     let { siteData } = $props();
     const timeString = "2024-12-30T22:20:34.000Z";
@@ -41,8 +42,15 @@
     let copyListStr = $state([]);
     let copyList = $state([]);
 
+    // onMount(() => {
+
+    // });
+
     $effect(() => {
         datas = siteData.datas;
+
+        console.log(datas);
+
         pages = siteData.pageArr;
         nowPage = $page.url.searchParams.get("page") || 1;
         reverseIdxArr = siteData.reverseIdxArr;
@@ -250,7 +258,6 @@
         }
     }
 </script>
-
 
 <dialog id="copy_list_modal" class="modal">
     <div class="modal-box">
