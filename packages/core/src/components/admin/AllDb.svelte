@@ -42,15 +42,13 @@
     let copyListStr = $state([]);
     let copyList = $state([]);
 
+
     // onMount(() => {
 
     // });
 
     $effect(() => {
         datas = siteData.datas;
-
-        console.log(datas);
-
         pages = siteData.pageArr;
         nowPage = $page.url.searchParams.get("page") || 1;
         reverseIdxArr = siteData.reverseIdxArr;
@@ -59,6 +57,11 @@
 
         allPageCount = siteData.allPage;
     });
+
+    console.log(datas);
+    
+
+    
 
     function searchFunc(e) {
         e.preventDefault();
@@ -258,6 +261,7 @@
         }
     }
 </script>
+
 
 <dialog id="copy_list_modal" class="modal">
     <div class="modal-box">
