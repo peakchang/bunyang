@@ -47,6 +47,9 @@
 
     // });
 
+    console.log(siteData);
+    
+
     $effect(() => {
         datas = siteData.datas;
         pages = siteData.pageArr;
@@ -57,9 +60,6 @@
 
         allPageCount = siteData.allPage;
     });
-
-    console.log(datas);
-    
 
     
 
