@@ -45,7 +45,7 @@
 <meta property="og:title" content={seoValue.title} />
 <meta property="og:description" content={seoValue.description} />
 <meta property="og:url" content={seoValue.url} />
-<meta property="og:image" content="https://withby.kr/with_thumb.jpg" />
+<meta property="og:image" content={seoValue.image} />
 <meta property="description" content={seoValue.description} />
 
 <!-- <meta property="og:url" content={seoValue.url} /> -->
