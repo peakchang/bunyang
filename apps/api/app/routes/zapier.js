@@ -18,8 +18,9 @@ function isISODate(str) {
 }
 
 function cleanEtcText(str = "") {
-    return String(str).replace(/[^0-9A-Za-z가-힣'",]+/g, "");
+    return String(str).replace(/[^0-9A-Za-z가-힣',]+/g, "");
 }
+
 
 zapierRouter.get('/topby', async (req, res) => {
     res.send('gogogodasfe;lfklwkf')

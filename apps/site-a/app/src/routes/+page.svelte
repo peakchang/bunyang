@@ -13,6 +13,8 @@
     const fullText3 = "탑분양을 이용 중 입니다.";
 
     async function startAnimation() {
+        console.log("startAnimation!!!");
+
         // 1. "한 현장" 한글자씩
         for (let i = 0; i <= fullText1.length; i++) {
             await new Promise((resolve) => setTimeout(resolve, 50));
@@ -59,7 +61,7 @@
 </script>
 
 <div class="max-w-[1080px] mx-auto">
-    <div class="main1" bind:this={main1}>
+    <div class="main1 mb-5" bind:this={main1}>
         <div class="main1_top_content paper-font font-extrabold lea">
             <div>{text1}</div>
             <div>{text2}</div>
@@ -71,9 +73,32 @@
             <div class="main1_bt_use font-semibold">{text3}</div>
         </div>
     </div>
+
+    <div class="mb-5">
+        <img src="/main_img/2.gif" alt="" />
+    </div>
+
+    <div
+        class="main3 bg-black text-yellow-200 p-5 paper-font font-semibold text-center mb-5"
+    >
+        <p>2025년</p>
+        <p>10건 이상 계약 쓴 현장</p>
+
+        <div>
+            <img src="/main_img/hylist/1111.jpg" alt="" class="mb-3" />
+            <img src="/main_img/hylist/2222.jpg" alt="" class="mb-3" />
+            <img src="/main_img/hylist/3333.jpg" alt="" class="mb-3" />
+            <img src="/main_img/hylist/4444.jpg" alt="" class="mb-3" />
+        </div>
+    </div>
+
+    <div class=" h-96"></div>
 </div>
 
 <style>
+    .main3 {
+        font-size: clamp(2rem, 9cqi, 6rem);
+    }
     .main1 {
         background-image: url("/main_img/1.jpg");
         width: 100%;
