@@ -1,168 +1,441 @@
 <script>
-    import { onMount } from "svelte";
+    import Seo from "$core/components/components/Seo.svelte";
+    import { user_info } from "$core/store";
 
-    let main1;
-    let hasAnimated = false;
-    let text1 = "";
-    let text2 = "";
-    let showNo = false;
-    let text3 = "";
+    const seoValue = {
+        title: "탑분양 - 부동산 분양 홍보의 기준",
+        description:
+            "부동산 현장 에서 1등하고 싶을땐 탑분양 아파트 오피스텔 지식산업센터 레지던스 분양 전문",
+        keywords:
+            "부동산 분양,아파트 분양,오피스텔 분양,지식산업센터 분양,레지던스 분양,부동산 분양 정보,아파트 분양 정보,오피스텔 분양 정보,지식산업센터 분양 정보,레지던스 분양 정보,아파트 청약,분양정보",
+        url: "https://adpeak.kr/",
+        imgge: "https://adpeak.kr/top-thumb.jpg",
+        main: true,
+    };
 
-    const fullText1 = "한 현장";
-    const fullText2 = "계약 10건";
-    const fullText3 = "탑분양을 이용 중 입니다.";
+    let { data } = $props();
 
-    async function startAnimation() {
-        console.log("startAnimation!!!");
+    let loading = $state(true);
 
-        // 1. "한 현장" 한글자씩
-        for (let i = 0; i <= fullText1.length; i++) {
-            await new Promise((resolve) => setTimeout(resolve, 50));
-            text1 = fullText1.slice(0, i);
-        }
+    let footerData = data.footerData;
 
-        // "계약 10건" 한글자씩
-        for (let i = 0; i <= fullText2.length; i++) {
-            await new Promise((resolve) => setTimeout(resolve, 50));
-            text2 = fullText2.slice(0, i);
-        }
+    let swiperPc = $state();
+    let swiperMobile = $state();
 
-        // 2. "NO!" 쾅! 등장
-        await new Promise((resolve) => setTimeout(resolve, 300));
-        showNo = true;
+    // PC 이미지 화면 사이즈에 맞춰서!!
+    let pc_image1 = $state();
+    let videoWrapper1 = $state();
 
-        // 3. "탑분양을 이용 중 입니다." 한글자씩
-        await new Promise((resolve) => setTimeout(resolve, 500));
-        for (let i = 0; i <= fullText3.length; i++) {
-            await new Promise((resolve) => setTimeout(resolve, 50));
-            text3 = fullText3.slice(0, i);
-        }
+    let pc_image2 = $state();
+    let videoWrapper2 = $state();
+
+    let m_image1 = $state();
+    let videoWrapper_m_1 = $state();
+
+    let m_image2 = $state();
+    let videoWrapper_m_2 = $state();
+
+    let swiperTest = $state();
+
+    $effect(() => {
+        loading = false;
+        positionPcVideo(pc_image1, videoWrapper1);
+        positionPcVideo(pc_image2, videoWrapper2);
+
+        positionMobileVideo1(m_image1, videoWrapper_m_1);
+        positionMobileVideo2(m_image2, videoWrapper_m_2);
+
+        swiperPc = new Swiper(".pc_swiper", {
+            // Optional parameters
+            autoHeight: true,
+            loop: true,
+            slidesPerView: 4,
+            spaceBetween: 20,
+            autoplay: {
+                delay: 1500,
+                disableOnInteraction: false,
+            },
+        });
+
+        swiperMobile = new Swiper(".m_swiper", {
+            // Optional parameters
+            autoHeight: true,
+            loop: true,
+            slidesPerView: 2,
+            spaceBetween: 10,
+            autoplay: {
+                delay: 1500,
+                disableOnInteraction: false,
+            },
+        });
+    });
+
+    // 이미지의 크기를 계산하여 동영상 위치 설정
+    function positionPcVideo(pc_img, videoWrapper) {
+        var rect1 = pc_img.getBoundingClientRect();
+        // 두 이미지 사이의 중간 위치를 계산
+        var coordY = rect1.height / 4.65;
+        var coordX = rect1.width / 2.125;
+        var videoWidth = rect1.width / 2.352;
+
+        // 동영상의 위치를 설정
+        videoWrapper.style.top = coordY + "px";
+        videoWrapper.style.left = coordX + "px";
+        videoWrapper.style.width = videoWidth + "px";
+        videoWrapper.style.display = "block";
     }
 
-    onMount(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting && !hasAnimated) {
-                        hasAnimated = true;
-                        startAnimation();
-                    }
-                });
-            },
-            { threshold: 0.3 },
-        );
+    function positionMobileVideo1(mobile_img, videoWrapper) {
+        var rect1 = mobile_img.getBoundingClientRect();
 
-        if (main1) {
-            observer.observe(main1);
-        }
+        // 두 이미지 사이의 중간 위치를 계산
+        var coordY = rect1.height / 14.05;
+        var coordX = rect1.width / 3.42;
+        var videoWidth = rect1.width / 1.573;
 
-        return () => observer.disconnect();
-    });
+        // 동영상의 위치를 설정
+        videoWrapper.style.top = coordY + "px";
+        videoWrapper.style.left = coordX + "px";
+        videoWrapper.style.width = videoWidth + "px";
+        videoWrapper.style.display = "block";
+    }
+
+    function positionMobileVideo2(mobile_img, videoWrapper) {
+        var rect1 = mobile_img.getBoundingClientRect();
+
+        // 두 이미지 사이의 중간 위치를 계산
+        var coordY = rect1.height / 10.24;
+        var coordX = rect1.width / 3.354;
+        var videoWidth = rect1.width / 1.563;
+
+        // 동영상의 위치를 설정
+        videoWrapper.style.top = coordY + "px";
+        videoWrapper.style.left = coordX + "px";
+        videoWrapper.style.width = videoWidth + "px";
+        videoWrapper.style.display = "block";
+    }
 </script>
 
-<div class="max-w-[1080px] mx-auto">
-    <div class="main1 mb-5" bind:this={main1}>
-        <div class="main1_top_content paper-font font-extrabold lea">
-            <div>{text1}</div>
-            <div>{text2}</div>
-        </div>
-        <div class="main1_bottom_content paper-font">
-            <div class="main1_bt_no font-extrabold" class:show={showNo}>
-                NO!
-            </div>
-            <div class="main1_bt_use font-semibold">{text3}</div>
-        </div>
+<svelte:head>
+    <Seo {seoValue}></Seo>
+</svelte:head>
+<!-- <svelte:window bind:innerWidth /> -->
+{#if loading}
+    <div class="text-center my-10">
+        <span class="loading loading-dots loading-lg"></span>
     </div>
+{/if}
+<div class="px-1 hidden md:block">
+    <div class="relative bg-black">
+        <div class="absolute" style="top: 180px; z-index: 10;">
+            <img src="/pc/main1_img.png" alt="" class="mx-auto" />
+        </div>
 
-    <div class="mb-5">
-        <img src="/main_img/2.gif" alt="" />
-    </div>
+        <div class="">
+            <img src="/pc/main_move_top.webp" alt="" class="mr-auto" />
+        </div>
 
-    <div
-        class="main3 bg-black text-yellow-200 p-5 paper-font font-semibold text-center mb-5"
-    >
-        <p>2025년</p>
-        <p>10건 이상 계약 쓴 현장</p>
+        <div class="py-24"></div>
 
         <div>
-            <img src="/main_img/hylist/1111.jpg" alt="" class="mb-3" />
-            <img src="/main_img/hylist/2222.jpg" alt="" class="mb-3" />
-            <img src="/main_img/hylist/3333.jpg" alt="" class="mb-3" />
-            <img src="/main_img/hylist/4444.jpg" alt="" class="mb-3" />
+            <img src="/pc/main_move_bottom.webp" alt="" class="ml-auto mt-20" />
         </div>
     </div>
 
-    <div class=" h-96"></div>
+    <img src="/pc/img_2.webp" alt="" class="mx-auto" />
+    <img src="/pc/img_3.jpg" alt="" class="mx-auto" />
+
+    <div class="containers">
+        <img
+            src="/pc/img_4.jpg"
+            id="image1"
+            alt=""
+            class="mx-auto"
+            bind:this={pc_image1}
+        />
+        <div
+            id="videoWrapper1"
+            class="video-wrapper text-white border border-white"
+            bind:this={videoWrapper1}
+        >
+            <video autoplay loop muted>
+                <source src="/introduce_company.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <div class="containers">
+        <img
+            src="/pc/img_5.jpg"
+            id="image2"
+            alt=""
+            class="mx-auto"
+            bind:this={pc_image2}
+        />
+        <div
+            id="videoWrapper2"
+            class="video-wrapper text-white border border-white"
+            bind:this={videoWrapper2}
+        >
+            <video autoplay loop muted>
+                <source src="/introduce_company2.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <div class="swiper pc_swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="/swipe_katalk/kakao_1.jpg" alt="" />
+            </div>
+            <div class="swiper-slide">
+                <img src="/swipe_katalk/kakao_2.jpg" alt="" />
+            </div>
+            <div class="swiper-slide">
+                <img src="/swipe_katalk/kakao_3.jpg" alt="" />
+            </div>
+            <div class="swiper-slide">
+                <img src="/swipe_katalk/kakao_4.jpg" alt="" />
+            </div>
+            <div class="swiper-slide">
+                <img src="/swipe_katalk/kakao_5.jpg" alt="" />
+            </div>
+            <div class="swiper-slide">
+                <img src="/swipe_katalk/kakao_6.jpg" alt="" />
+            </div>
+            <div class="swiper-slide">
+                <img src="/swipe_katalk/kakao_7.jpg" alt="" />
+            </div>
+            <div class="swiper-slide">
+                <img src="/swipe_katalk/kakao_8.jpg" alt="" />
+            </div>
+            <div class="swiper-slide">
+                <img src="/swipe_katalk/kakao_9.jpg" alt="" />
+            </div>
+            <div class="swiper-slide">
+                <img src="/swipe_katalk/kakao_10.jpg" alt="" />
+            </div>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <img src="/pc/img_6.jpg" alt="" class="mx-auto" />
+    <img src="/pc/img_7.jpg" alt="" class="mx-auto" />
+</div>
+
+<div class="px-1 blodk md:hidden">
+    <div class="bg-black">
+        <img src="/m/main_move_top.webp" alt="" class="mr-auto" />
+        <img src="/m/main1_img.jpg" alt="" class="mx-auto" />
+        <img src="/m/main_move_bottom.webp" alt="" class="ml-auto mt-20" />
+    </div>
+
+    <img src="/m/img_2.webp" alt="" class="mx-auto" />
+    <img src="/m/img_3.jpg" alt="" class="mx-auto" />
+
+    <div class="containers">
+        <img
+            src="/m/img_4.jpg"
+            id="m_image1"
+            alt=""
+            class="mx-auto"
+            bind:this={m_image1}
+        />
+        <div
+            id="videoWrapper_m_1"
+            class="video-wrapper text-white border border-white"
+            bind:this={videoWrapper_m_1}
+        >
+            <video autoplay loop muted>
+                <source src="/introduce_company.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <div class="containers">
+        <img
+            src="/m/img_5.jpg"
+            id="m_image2"
+            alt=""
+            class="mx-auto"
+            bind:this={m_image2}
+        />
+        <div
+            id="videoWrapper_m_2"
+            class="video-wrapper text-white border border-white"
+            bind:this={videoWrapper_m_2}
+        >
+            <video autoplay loop muted>
+                <source src="/introduce_company2.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <div class="swiper m_swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="/swipe_katalk/kakao_1.jpg" alt="" />
+            </div>
+            <div class="swiper-slide">
+                <img src="/swipe_katalk/kakao_2.jpg" alt="" />
+            </div>
+            <div class="swiper-slide">
+                <img src="/swipe_katalk/kakao_3.jpg" alt="" />
+            </div>
+            <div class="swiper-slide">
+                <img src="/swipe_katalk/kakao_4.jpg" alt="" />
+            </div>
+            <div class="swiper-slide">
+                <img src="/swipe_katalk/kakao_5.jpg" alt="" />
+            </div>
+            <div class="swiper-slide">
+                <img src="/swipe_katalk/kakao_6.jpg" alt="" />
+            </div>
+            <div class="swiper-slide">
+                <img src="/swipe_katalk/kakao_7.jpg" alt="" />
+            </div>
+            <div class="swiper-slide">
+                <img src="/swipe_katalk/kakao_8.jpg" alt="" />
+            </div>
+            <div class="swiper-slide">
+                <img src="/swipe_katalk/kakao_9.jpg" alt="" />
+            </div>
+            <div class="swiper-slide">
+                <img src="/swipe_katalk/kakao_10.jpg" alt="" />
+            </div>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+    <img src="/m/img_6.jpg" alt="" class="mx-auto" />
+    <img src="/m/img_7.jpg" alt="" class="mx-auto" />
+</div>
+
+<div id="ft">
+    <div class="container pb-10 suit-font mx-auto">
+        <div class="grid grid-cols-4">
+            <div
+                class="col-span-4 md:col-span-1 flex justify-center items-center"
+            >
+                <div class="max-w-44">
+                    <img src="/footer-logo.png" alt="" />
+                </div>
+            </div>
+
+            <div class="col-span-4 md:col-span-3 text-center">
+                <div class="suit_font text-center mt-5 text-xs md:text-base">
+                    {#if footerData.fs_personal_officer}
+                        <span class="inline-block mr-4">
+                            개인정보책임자 : {footerData.fs_personal_officer}
+                        </span>
+                    {/if}
+
+                    {#if footerData.fs_owner}
+                        <span class="inline-block mr-4">
+                            대표 : {footerData.fs_owner}
+                        </span>
+                    {/if}
+
+                    {#if footerData.fs_company}
+                        <span class="inline-block mr-4">
+                            회사명 : {footerData.fs_company}
+                        </span>
+                    {/if}
+
+                    {#if footerData.fs_address}
+                        <span class="inline-block mr-4">
+                            주소 : {footerData.fs_address}
+                        </span>
+                    {/if}
+
+                    {#if footerData.fs_email}
+                        <span class="inline-block mr-4">
+                            이메일 : {footerData.fs_email}
+                        </span>
+                    {/if}
+
+                    {#if footerData.fs_business_num}
+                        <span class="inline-block mr-4">
+                            사업자번호 : {footerData.fs_business_num}
+                        </span>
+                    {/if}
+
+                    {#if footerData.fs_callnumber}
+                        <span class="inline-block mr-4">
+                            전화 : {footerData.fs_callnumber}
+                        </span>
+                    {/if}
+
+                    {#if footerData.fs_report_number}
+                        <span class="inline-block mr-4">
+                            통신판매업신고번호 : {footerData.fs_report_number}
+                        </span>
+                    {/if}
+
+                    {#if $user_info.rate > 3}
+                        <span class=" text-blue-600">
+                            <a class="nav-link" href="/admin" target="_blank"
+                                >CRM 바로가기</a
+                            >
+                        </span>
+                    {:else}
+                        <span class="text-blue-600">
+                            <a class="nav-link" href="/admin" target="_blank">
+                                CRM 바로가기
+                            </a>
+                        </span>
+                    {/if}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <style>
-    .main3 {
-        font-size: clamp(2rem, 9cqi, 6rem);
+    .containers {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
-    .main1 {
-        background-image: url("/main_img/1.jpg");
+
+    .video-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
-        aspect-ratio: 1080 / 1417;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        font-weight: 600;
-        container-type: inline-size;
+        /* display: none; */
+        /* Initially hidden */
     }
 
-    .main1_top_content {
+    .video-wrapper video {
+        width: 100%;
+        height: auto;
+    }
+
+    .swiper {
+        padding: 30px 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .swiper-slide {
         text-align: center;
-        padding-top: 16%;
-        font-size: clamp(4rem, 14cqi, 8.5rem);
+        font-size: 18px;
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: auto;
     }
 
-    .main1_top_content p {
-        min-height: 1.2em;
-    }
-
-    .main1_bottom_content {
-        text-align: center;
-        margin-top: 15%;
-    }
-
-    .main1_bt_no {
-        font-size: clamp(4rem, 14cqi, 9rem);
-        opacity: 0;
-        transform: scale(0.5);
-        transition: none;
-    }
-
-    .main1_bt_no.show {
-        animation: bang 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-    }
-
-    @keyframes bang {
-        0% {
-            opacity: 0;
-            transform: scale(0.5) rotate(-10deg);
-        }
-        50% {
-            transform: scale(1.2) rotate(5deg);
-        }
-        100% {
-            opacity: 1;
-            transform: scale(1) rotate(0deg);
-        }
-    }
-
-    .main1_bt_use {
-        font-size: clamp(2rem, 6cqi, 4rem);
-        min-height: 1.2em;
-    }
-
-    @keyframes blink {
-        0%,
-        50% {
-            opacity: 1;
-        }
-        51%,
-        100% {
-            opacity: 0;
-        }
+    .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 </style>

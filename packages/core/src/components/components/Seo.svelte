@@ -29,7 +29,7 @@
     content="eac9d4ee9921a03f4f6dd6b674d702dab852a08f"
 />
 <meta name="keywords" content={seoValue.keywords} />
-<meta itemprop="image" content="https://withby.kr/with_thumb.jpg" />
+<meta itemprop="image" content={seoValue.image} />
 
 {#if seoValue.description}
     <meta itemprop="description" content={seoValue.description} />
