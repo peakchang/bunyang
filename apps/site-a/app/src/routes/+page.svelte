@@ -9,7 +9,7 @@
         keywords:
             "부동산 분양,아파트 분양,오피스텔 분양,지식산업센터 분양,레지던스 분양,부동산 분양 정보,아파트 분양 정보,오피스텔 분양 정보,지식산업센터 분양 정보,레지던스 분양 정보,아파트 청약,분양정보",
         url: "https://adpeak.kr/",
-        imgge: "https://adpeak.kr/top-thumb.jpg",
+        image: "https://adpeak.kr/top-thumb.jpg",
         main: true,
     };
 
