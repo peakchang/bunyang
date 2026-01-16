@@ -125,7 +125,7 @@
             <main
                 class="flex-grow flex flex-col items-center justify-center text-center z-10 px-6 mb-5"
             >
-                <span class=" text-black">{data.isMobile} / {width}</span>
+                <!-- <span class=" text-black">{data.isMobile} / {width}</span> -->
 
                 <h1
                     class="paper-font mt-5 mb-9 text-[62px] font-black text-zinc-900 leading-[1.1] tracking-tighter"
