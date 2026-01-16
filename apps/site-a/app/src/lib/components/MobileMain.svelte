@@ -7,12 +7,23 @@
 
     const width = browser ? window.innerWidth : 0;
 
-    export let setData;
+    let setData = $props();
+    let swiper = $state();
 
-    console.log(setData);
+    const swipeImgList = [
+        "/main_img/swipe/swiper1.jpg",
+        "/main_img/swipe/swiper2.jpg",
+        "/main_img/swipe/swiper3.jpg",
+        "/main_img/swipe/swiper4.jpg",
+        "/main_img/swipe/swiper5.jpg",
+        "/main_img/swipe/swiper6.jpg",
+        "/main_img/swipe/swiper7.jpg",
+        "/main_img/swipe/swiper8.jpg",
+        "/main_img/swipe/swiper9.jpg",
+    ];
 
     // 각 섹션의 가시성 상태를 관리하는 객체
-    let visible = {
+    let visible = $state({
         s1: false,
         s2: false,
         s3: false,
@@ -21,7 +32,7 @@
         s6: false,
         s7: false,
         s8: false,
-    };
+    });
 
     // 2페이지 현장 데이터 리스트
     const projects = [
@@ -76,6 +87,18 @@
     ];
 
     onMount(() => {
+        swiper = new Swiper(".swiper", {
+            // Optional parameters
+            autoHeight: true,
+            loop: true,
+            slidesPerView: 2,
+            spaceBetween: 20,
+            autoplay: {
+                delay: 1500,
+                disableOnInteraction: false,
+            },
+        });
+
         // Intersection Observer 설정
         const observerOptions = {
             threshold: 0.15, // 섹션이 15% 정도 보일 때 트리거
@@ -248,7 +271,18 @@
             {/each}
         </div>
 
-        <div class="mt-20 text-center pb-5">
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                {#each swipeImgList as swiperImg}
+                    <div class="swiper-slide">
+                        <img src={swiperImg} alt="" />
+                    </div>
+                {/each}
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <div class="text-center pb-5 mt-10">
             <p
                 class="chosunmyungjo-font text-[40px] font-black text-[#F25C05] tracking-tighter italic animate-bounce"
             >
@@ -1090,5 +1124,28 @@
     :global(body) {
         word-break: keep-all;
         margin: 0;
+    }
+
+    .swiper {
+        padding: 30px 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+    }
+
+    .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 </style>
