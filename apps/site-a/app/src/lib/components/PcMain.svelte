@@ -325,7 +325,7 @@
                 </div>
             </div>
 
-            <div class="col-span-4 md:col-span-3 text-center">
+            <div class="col-span-4 md:col-span-3 text-center text-black">
                 <div class="suit_font text-center mt-5 text-xs md:text-base">
                     {#if footerData.fs_personal_officer}
                         <span class="inline-block mr-4">
