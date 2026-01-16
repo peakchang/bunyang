@@ -3,6 +3,14 @@
     import { fade, fly, scale } from "svelte/transition";
     import { quintOut, elasticOut, backOut } from "svelte/easing";
 
+    import { browser } from "$app/environment";
+
+    const width = browser ? window.innerWidth : 0;
+
+    export let data;
+
+    console.log(data);
+
     // 각 섹션의 가시성 상태를 관리하는 객체
     let visible = {
         s1: false,
@@ -117,6 +125,8 @@
             <main
                 class="flex-grow flex flex-col items-center justify-center text-center z-10 px-6 mb-5"
             >
+                <span class=" text-black">{data.isMobile} / {width}</span>
+
                 <h1
                     class="paper-font mt-5 mb-9 text-[62px] font-black text-zinc-900 leading-[1.1] tracking-tighter"
                 >
@@ -175,7 +185,6 @@
                     광고가 자리가 있는지 확인해보세요.
                 </p>
                 <button
-                    on:click={scrollToPerformance}
                     class="paper-font w-full bg-white text-zinc-900 text-2xl font-normal py-4 rounded-2xl active:scale-95 transition-transform shadow-xl"
                 >
                     지금 바로 확인하기

@@ -4,8 +4,11 @@ import { back_api } from "$core/const.js";
 // 사이트 접속시 user_info store 값에 user 정보 넣기
 export const load = async ({ params, url, data }) => {
 
+    let isMobile = Boolean(data.isMobile);
+
     let footerData = {}
     try {
+
         const res = await axios.get(`${back_api}/main/load_footer`)
         if (res.status === 200) {
             footerData = res.data.footerData
@@ -14,9 +17,8 @@ export const load = async ({ params, url, data }) => {
 
     }
 
-    console.log(footerData);
 
 
 
-    return { footerData }
+    return { footerData, isMobile }
 }

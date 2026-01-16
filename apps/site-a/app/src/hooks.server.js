@@ -8,10 +8,10 @@ export async function handle({ event, resolve }) {
 
     let userInfo = {}
     const refreshToken = event.cookies.get('tk'); // 쿠키에서 Refresh Token 가져오기
-    console.log(`refreshToken : ${refreshToken}`);
+    // console.log(`refreshToken : ${refreshToken}`);
 
     const cookieHeader = event.request.headers.get('cookie') || '';
-    console.log(`cookieHeader : ${cookieHeader}`);
+    // console.log(`cookieHeader : ${cookieHeader}`);
 
     if (refreshToken) {
         try {
@@ -37,8 +37,6 @@ export async function handle({ event, resolve }) {
         //         rate: userInfoRow[0].rate
         //     }
         //     console.log(userInfo);
-
-        console.log('hook 불러오기 끝!!!');
 
     } else {
         event.cookies.delete('tk', { path: '/' });
