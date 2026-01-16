@@ -2,13 +2,28 @@
     import { onMount } from "svelte";
     import { fade, fly, scale } from "svelte/transition";
     import { quintOut, elasticOut, backOut } from "svelte/easing";
-
     import { browser } from "$app/environment";
+    import Seo from "$core/components/components/Seo.svelte";
+    import { user_info } from "$core/store";
+
+    const seoValue = {
+        title: "탑분양 - 부동산 분양 홍보의 기준",
+        description:
+            "부동산 현장 에서 1등하고 싶을땐 탑분양 아파트 오피스텔 지식산업센터 레지던스 분양 전문",
+        keywords:
+            "부동산 분양,아파트 분양,오피스텔 분양,지식산업센터 분양,레지던스 분양,부동산 분양 정보,아파트 분양 정보,오피스텔 분양 정보,지식산업센터 분양 정보,레지던스 분양 정보,아파트 청약,분양정보",
+        url: "https://adpeak.kr/",
+        image: "https://adpeak.kr/top-thumb.jpg",
+        main: true,
+    };
 
     const width = browser ? window.innerWidth : 0;
 
-    let setData = $props();
+    let { setData } = $props();
+
     let swiper = $state();
+    let footerData = $derived(setData.footerData);
+    console.log(footerData);
 
     const swipeImgList = [
         "/main_img/swipe/swiper1.jpg",
@@ -909,11 +924,95 @@
     {/if}
 </section>
 
-<section class="mt-5 text-red-500 border-t border-gray-300">
-    <div class="p-5">asdfasdfasfdasdf</div>
-</section>
+<section class="mt-5 border-t border-gray-300">
+    <div id="ft">
+        <div class="container pb-10 suit-font mx-auto">
+            <div class="grid grid-cols-4">
+                <div
+                    class="col-span-4 md:col-span-1 flex justify-center items-center"
+                >
+                    <div class="max-w-44">
+                        <img src="/footer-logo.png" alt="" />
+                    </div>
+                </div>
 
-<div>alsdifjalisjdf</div>
+                <div class="col-span-4 md:col-span-3 text-center text-black">
+                    <div
+                        class="suit_font text-center mt-5 text-xs md:text-base"
+                    >
+                        {#if footerData.fs_personal_officer}
+                            <span class="inline-block mr-4">
+                                개인정보책임자 : {footerData.fs_personal_officer}
+                            </span>
+                        {/if}
+
+                        {#if footerData.fs_owner}
+                            <span class="inline-block mr-4">
+                                대표 : {footerData.fs_owner}
+                            </span>
+                        {/if}
+
+                        {#if footerData.fs_company}
+                            <span class="inline-block mr-4">
+                                회사명 : {footerData.fs_company}
+                            </span>
+                        {/if}
+
+                        {#if footerData.fs_address}
+                            <span class="inline-block mr-4">
+                                주소 : {footerData.fs_address}
+                            </span>
+                        {/if}
+
+                        {#if footerData.fs_email}
+                            <span class="inline-block mr-4">
+                                이메일 : {footerData.fs_email}
+                            </span>
+                        {/if}
+
+                        {#if footerData.fs_business_num}
+                            <span class="inline-block mr-4">
+                                사업자번호 : {footerData.fs_business_num}
+                            </span>
+                        {/if}
+
+                        {#if footerData.fs_callnumber}
+                            <span class="inline-block mr-4">
+                                전화 : {footerData.fs_callnumber}
+                            </span>
+                        {/if}
+
+                        {#if footerData.fs_report_number}
+                            <span class="inline-block mr-4">
+                                통신판매업신고번호 : {footerData.fs_report_number}
+                            </span>
+                        {/if}
+
+                        <!-- {#if $user_info.rate > 3}
+                            <span class=" text-blue-600">
+                                <a
+                                    class="nav-link"
+                                    href="/admin"
+                                    target="_blank">CRM 바로가기</a
+                                >
+                            </span>
+                        {:else}
+                            <span class="text-blue-600">
+                                <a
+                                    class="nav-link"
+                                    href="/admin"
+                                    target="_blank"
+                                >
+                                    CRM 바로가기
+                                </a>
+                            </span>
+                        {/if} -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <style>
     .star-draw {
