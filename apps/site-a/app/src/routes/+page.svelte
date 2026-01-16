@@ -857,7 +857,6 @@
                 class="w-full"
             >
                 <button
-                    on:click={handleContact}
                     class="paper-font animate-pulse-custom w-full bg-zinc-900 text-white text-3xl font-semibold py-6 rounded-md shadow-2xl active:scale-95 transition-transform"
                 >
                     [광고 가능 여부 확인]
