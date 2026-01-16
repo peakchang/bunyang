@@ -201,8 +201,43 @@
 		font-display: swap;
 	}
 
+	@font-face {
+		font-family: "NanumBarunGothic";
+		src: url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot");
+		font-weight: 400;
+		font-display: swap;
+	}
+	@font-face {
+		font-family: "NanumBarunGothic";
+		src: url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot");
+		font-weight: 700;
+		font-display: swap;
+	}
+	@font-face {
+		font-family: "NanumBarunGothic";
+		src: url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot");
+		font-weight: 300;
+		font-display: swap;
+	}
+
+	@font-face {
+		font-family: "ChosunIlboMyungjo";
+		src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff")
+			format("woff");
+		font-weight: normal;
+		font-display: swap;
+	}
+
+	:global(.chosunmyungjo-font) {
+		font-family: "ChosunIlboMyungjo";
+	}
+
 	:global(.paper-font) {
 		font-family: "Paperozi";
+	}
+
+	:global(.nanumbarun-font) {
+		font-family: "NanumBarunGothic";
 	}
 
 	:global(.nanumneo-font) {
