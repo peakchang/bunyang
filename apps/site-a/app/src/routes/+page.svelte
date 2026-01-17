@@ -4,8 +4,8 @@
     import { onMount } from "svelte";
     let { data } = $props();
 
-    let isMobile = $derived(data.isMobile);
-    // let isMobile = "mobile";
+    // let isMobile = $derived(data.isMobile);
+    let isMobile = "mobile";
 </script>
 
 {#if isMobile}

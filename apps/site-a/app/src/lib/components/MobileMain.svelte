@@ -5,6 +5,9 @@
     import { browser } from "$app/environment";
     import Seo from "$core/components/components/Seo.svelte";
     import { user_info } from "$core/store";
+    import Modal from "$core/components/components/Modal.svelte";
+    import axios from "axios";
+    import { back_api } from "$core/const";
 
     const seoValue = {
         title: "탑분양 - 부동산 분양 홍보의 기준",
@@ -23,7 +26,12 @@
 
     let swiper = $state();
     let footerData = $derived(setData.footerData);
-    console.log(footerData);
+
+    let modalShow = $state(true);
+
+    let af_mb_name = $state("");
+    let af_mb_phone = $state("");
+    let af_form_name = $state("");
 
     const swipeImgList = [
         "/main_img/swipe/swiper1.jpg",
@@ -141,7 +149,69 @@
         const el = document.getElementById("performance-section");
         if (el) el.scrollIntoView({ behavior: "smooth" });
     };
+
+    async function askCounsel(e) {
+        e.preventDefault();
+        console.log("alsidfjlaf");
+        console.log(af_mb_name);
+        console.log(af_mb_phone);
+        console.log(`탑분양 상담 신청 : ${af_form_name}`);
+        console.log(back_api);
+        
+
+        try {
+            const res = await axios.post(`${back_api}`)
+        } catch (error) {
+            
+        }
+    }
 </script>
+
+<Modal bind:visible={modalShow} xBtn={true} width="1000">
+    <div class="text-black">
+        <h2 class="minimal-form-title">정보를 입력해주세요</h2>
+
+        <form class="minimal-form" onsubmit={askCounsel}>
+            <div class="minimal-form-group">
+                <input
+                    type="text"
+                    id="site-name"
+                    class="minimal-input"
+                    placeholder="현장명"
+                    required
+                    bind:value={af_form_name}
+                />
+                <label for="site-name" class="visually-hidden">현장명</label>
+            </div>
+
+            <div class="minimal-form-group">
+                <input
+                    type="text"
+                    id="name"
+                    class="minimal-input"
+                    placeholder="성함"
+                    required
+                    bind:value={af_mb_name}
+                />
+                <label for="name" class="visually-hidden">성함</label>
+            </div>
+
+            <div class="minimal-form-group">
+                <input
+                    type="tel"
+                    id="contact"
+                    class="minimal-input"
+                    placeholder="연락처"
+                    required
+                    bind:value={af_mb_phone}
+                />
+                <label for="contact" class="visually-hidden">연락처</label>
+            </div>
+
+            <button type="submit" class="minimal-submit-btn">확인</button>
+        </form>
+    </div>
+</Modal>
 
 <div
     class="relative w-full max-w-[650px] mx-auto bg-white shadow-2xl font-sans"
@@ -224,6 +294,9 @@
                 </p>
                 <button
                     class="paper-font w-full bg-white text-zinc-900 text-2xl font-normal py-4 rounded-2xl active:scale-95 transition-transform shadow-xl"
+                    onclick={() => {
+                        modalShow = true;
+                    }}
                 >
                     지금 바로 확인하기
                 </button>
@@ -916,6 +989,9 @@
             >
                 <button
                     class="paper-font animate-pulse-custom w-full bg-zinc-900 text-white text-3xl font-semibold py-6 rounded-md shadow-2xl active:scale-95 transition-transform"
+                    onclick={() => {
+                        modalShow = true;
+                    }}
                 >
                     [광고 가능 여부 확인]
                 </button>
@@ -1247,4 +1323,86 @@
         height: 100%;
         object-fit: cover;
     }
+
+    /* 폼 전체 컨테이너 스타일 (필요시 패딩 등 조절) */
+    .minimal-form {
+        width: 100%;
+        max-width: 400px; /* 폼 최대 너비 (조절 가능) */
+        margin: 0 auto; /* 가운데 정렬 */
+    }
+
+    /* 폼 제목 스타일 */
+    .minimal-form-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    /* 입력 필드 그룹 (간격 조절) */
+    .minimal-form-group {
+        margin-bottom: 1.5rem;
+        text-align: left;
+    }
+
+    /* 입력 필드 스타일 (밑줄만 표시) */
+    .minimal-input {
+        width: 100%;
+        padding: 0.75rem 0;
+        border: none;
+        border-bottom: 1px solid #e0e0e0;
+        background-color: transparent;
+        font-size: 1rem;
+        color: #1a1a1a;
+        transition: border-color 0.2s;
+        border-radius: 0; /* 모바일 OS 기본 스타일 제거 */
+        box-shadow: none; /* 기본 그림자 제거 */
+        outline: none; /* 포커스 아웃라인 제거 */
+    }
+
+    /* 입력 필드 포커스 시 스타일 */
+    .minimal-input:focus {
+        border-bottom-color: #1a1a1a; /* 포커스 시 밑줄 색상 변경 */
+    }
+
+    /* 플레이스홀더 색상 */
+    .minimal-input::placeholder {
+        color: #a0a0a0;
+    }
+
+    /* 확인 버튼 스타일 */
+    .minimal-submit-btn {
+        width: 100%;
+        padding: 1rem;
+        background-color: #1a1a1a;
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        margin-top: 0.5rem;
+    }
+
+    /* 버튼 호버 효과 */
+    .minimal-submit-btn:hover {
+        background-color: #333;
+    }
+
+    /* 접근성을 위한 숨김 클래스 (이미 있다면 제외) */
+    .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    /* ----- Minimalist & Clean 폼 스타일 끝 ----- */
 </style>
