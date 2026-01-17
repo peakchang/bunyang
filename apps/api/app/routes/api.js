@@ -85,6 +85,9 @@ apiRouter.post('/inquiryUpdate', async (req, res) => {
             subject_1: '분양정보 신청고객 알림톡',
             message_1: `고객 접수 안내!\n${body.af_form_name} ${body.af_mb_name} 접수되었습니다.\n고객 번호 : ${body.af_mb_phone}`,
         }
+
+        const aligo_res = await aligoapi.alimtalkSend(req, AuthData)
+        console.log(`알리고 발송 : ${aligo_res.message}`);
     } catch (error) {
         console.error(error.message);
     }
