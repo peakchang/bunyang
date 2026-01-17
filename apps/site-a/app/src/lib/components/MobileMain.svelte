@@ -27,7 +27,8 @@
     let swiper = $state();
     let footerData = $derived(setData.footerData);
 
-    let modalShow = $state(true);
+    let modalShow = $state(false);
+    let completeShow = $state(false);
 
     let af_mb_name = $state("");
     let af_mb_phone = $state("");
@@ -157,13 +158,17 @@
         console.log(af_mb_phone);
         console.log(`탑분양 상담 신청 : ${af_form_name}`);
         console.log(back_api);
-        
 
         try {
-            const res = await axios.post(`${back_api}`)
-        } catch (error) {
-            
-        }
+            const res = await axios.post(`${back_api}/inquiryUpdate`, {
+                af_mb_name,
+                af_mb_phone,
+                af_form_name: `탑분양 상담 신청 : ${af_form_name}`,
+            });
+        } catch (error) {}
+
+        modalShow = false;
+        completeShow = true;
     }
 </script>
 
@@ -210,6 +215,16 @@
 
             <button type="submit" class="minimal-submit-btn">확인</button>
         </form>
+    </div>
+</Modal>
+
+<Modal bind:visible={completeShow} xBtn={false} width="1000">
+    <div class="text-black text-center">
+        <h2 class="minimal-form-title">상담 신청이 완료되었습니다!</h2>
+        <p class="minimal-form-subtitle">
+            빠른 시일 내에 담당자가 연락드리겠습니다.
+        </p>
+        <button class="mt-5 btn btn-info text-white w-1/2">닫기</button>
     </div>
 </Modal>
 
