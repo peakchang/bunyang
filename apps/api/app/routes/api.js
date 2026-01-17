@@ -69,7 +69,7 @@ apiRouter.post('/inquiryUpdate', async (req, res) => {
             userid: process.env.ALIGOID,
             // 이곳에 userid를 입력하세요
         }
-        
+
         req.body = {
             type: 'i',  // 유효시간 타입 코드 // y(년), m(월), d(일), h(시), i(분), s(초)
             time: 1, // 유효시간
@@ -81,7 +81,7 @@ apiRouter.post('/inquiryUpdate', async (req, res) => {
             token: result.token,
             tpl_code: 'TX_0641',
             sender: '010-6628-6651',
-            receiver_1: '010-7549-7263',
+            receiver_1: '010-4478-1127',
             subject_1: '분양정보 신청고객 알림톡',
             message_1: `고객 접수 안내!\n${body.af_form_name} ${body.af_mb_name} 접수되었습니다.\n고객 번호 : ${body.af_mb_phone}`,
         }
