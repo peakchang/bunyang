@@ -776,7 +776,7 @@ zapierRouter.post('/withby', async (req, res) => {
         const values = [reFormName, '분양', 'FB', dbName, get_phone, nowStr]
 
         if (etcValuesStr) {
-            etcValuesStr = etcValuesStr.replace(/'/g, '"');
+            etcValuesStr = String(etcValuesStr).replace(/[^0-9A-Za-z가-힣\s]/g, '');
         }
 
         // 폼 insert 하기!!
