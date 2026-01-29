@@ -32,7 +32,7 @@
 			"script",
 			"https://connect.facebook.net/en_US/fbevents.js",
 		);
-		fbq("init", "1402121934222448");
+		fbq("init", "1771095546920325");
 		fbq("track", "PageView");
 	</script>
 	<noscript
@@ -40,7 +40,7 @@
 			height="1"
 			width="1"
 			style="display:none"
-			src="https://www.facebook.com/tr?id=1402121934222448&ev=PageView&noscript=1"
+			src="https://www.facebook.com/tr?id=1771095546920325&ev=PageView&noscript=1"
 		/></noscript
 	>
 	<!-- End Meta Pixel Code -->
