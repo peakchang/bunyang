@@ -131,9 +131,11 @@
 <div class=" max-w-[860px] mx-auto px-2">
     <div class="mt-3 rounded-lg overflow-hidden">
         <a href="TEL:1644-8959">
-            <div class="mb-3">
-                <img src="/mainpage2/main0.jpg" alt="" />
-            </div>
+            <button>
+                <div class="mb-3">
+                    <img src="/mainpage2/main0.jpg" alt="" />
+                </div>
+            </button>
         </a>
 
         <!-- <div class="bg-[url('/mainpage2/main-back.jpg')]">
