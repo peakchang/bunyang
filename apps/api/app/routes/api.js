@@ -53,7 +53,13 @@ apiRouter.get('/', (req, res) => {
 })
 
 apiRouter.post('/inquiryUpdate', async (req, res) => {
+
+    console.log('아 왜 안들어오냐고!!!!!!!!');
+
     const body = req.body;
+
+    console.log(body);
+
 
     try {
         const queryStr = getQueryStr(body, 'insert', 'af_created_at');

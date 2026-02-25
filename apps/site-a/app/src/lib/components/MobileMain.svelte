@@ -153,12 +153,6 @@
 
     async function askCounsel(e) {
         e.preventDefault();
-        console.log("alsidfjlaf");
-        console.log(af_mb_name);
-        console.log(af_mb_phone);
-        console.log(`탑분양 상담 신청 : ${af_form_name}`);
-        console.log(back_api);
-
         try {
             const res = await axios.post(`${back_api}/inquiryUpdate`, {
                 af_mb_name,

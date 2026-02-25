@@ -32,9 +32,22 @@
 		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	/>
 
-	<!-- AOS -->
-	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&display=swap"
+		rel="stylesheet"
+	/>
+
+	<!-- Swiper JS -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
+	></script>
+	<!-- Link Swiper's CSS -->
+	<link
+		rel="stylesheet"
+		href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+	/>
 
 	<link rel="icon" href={favicon} />
 </svelte:head>
@@ -55,6 +68,25 @@
 			format("woff");
 		font-weight: 700;
 		font-style: normal;
+	}
+
+	@font-face {
+		font-family: "SeoulHangang";
+		src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/SeoulHangangM.woff")
+			format("woff");
+		font-weight: normal;
+		font-display: swap;
+	}
+
+	:global(.seoul-hangang) {
+		font-family: "SeoulHangang";
+	}
+	:root {
+		font-family:
+			"Montserrat",
+			"Pretendard",
+			-apple-system,
+			sans-serif;
 	}
 
 	:global(.kbo-font) {
