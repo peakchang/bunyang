@@ -324,7 +324,7 @@
 </Modal>
 
 <section class="mx-auto max-w-[1024px]">
-    <video src="/main/first-movie.mp4" autoplay muted loop playsinline></video>
+    <video src="/main/first-movie.mp4" autoplay loop playsinline></video>
 </section>
 
 <section
@@ -333,6 +333,7 @@
     <video
         src="/main/first-back-mov.mp4"
         class="absolute top-1/2 left-1/2 min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 object-cover z-10 brightness-[0.4]"
+        muted
         autoplay
         loop
         playsinline
