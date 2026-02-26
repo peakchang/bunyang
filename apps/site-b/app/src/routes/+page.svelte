@@ -106,8 +106,15 @@
     ];
 
     let observers;
+
     let observer;
     onMount(() => {
+        videoElement.play().catch((error) => {
+            console.log(
+                "자동 재생이 차단되었습니다. 사용자 클릭이 필요합니다.",
+            );
+        });
+
         swiper1 = new Swiper(".swiper1", {
             // Optional parameters
             autoHeight: true,
