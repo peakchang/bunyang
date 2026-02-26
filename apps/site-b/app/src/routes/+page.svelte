@@ -2,6 +2,7 @@
     import Modal from "$core/components/components/Modal.svelte";
     import axios from "axios";
     import { back_api } from "$core/const";
+    import Seo from "$core/components/components/Seo.svelte";
     import { onDestroy, onMount } from "svelte";
     import { tweened } from "svelte/motion";
     import { cubicOut } from "svelte/easing";
@@ -17,6 +18,17 @@
     let af_form_name = $state("");
     let af_mb_name = $state("");
     let af_mb_phone = $state("");
+
+    const seoValue = {
+        title: "리치분양 - 현장 1등을 위한 최고의 선택!",
+        description:
+            "현장 1등을 위한 최고의 선택 리치분양! 아파트, 오피스텔, 지식산업센터, 도시형 생활주택, 호텔 등 분양 홍보 전문!",
+        keywords:
+            "부동산 분양,아파트 분양,아파트 분양 정보,지식산업센터 분양,레지던스 분양,지식산업센터 분양 정보,레지던스 분양 정보,아파트 청약부동산 분양 정보,오피스텔 분양 정보,오피스텔 분양,분양정보",
+        url: "https://richby.co.kr/",
+        image: "https://richby.co.kr/rich-thumb.jpg",
+        main: true,
+    };
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -149,6 +161,10 @@
         } catch (error) {}
     });
 </script>
+
+<svelte:head>
+    <Seo {seoValue}></Seo>
+</svelte:head>
 
 <Modal bind:visible={modalShow} xBtn={true} width="1000">
     <div class="w-full bg-white rounded-2xl p-1">
@@ -318,7 +334,6 @@
         src="/main/first-back-mov.mp4"
         class="absolute top-1/2 left-1/2 min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 object-cover z-10 brightness-[0.4]"
         autoplay
-        muted
         loop
         playsinline
     >
@@ -710,10 +725,10 @@
 </div>
 
 <div
-    class="fixed bottom-0 left-0 h-24 py-2 w-full border-t border-white bg-[] flex justify-center z-50"
+    class="fixed bottom-0 left-0 py-2 w-full border-t border-white bg-[] flex justify-center z-50"
     style="background-image: url('/green-bg.png');"
 >
-    <div class="w-full flex max-w-[450px]">
+    <div class="w-full flex max-w-[230px] md:max-w-[350px]">
         <a href="TEL:1668-2625">
             <img
                 src="/main_adcall.png"
