@@ -19,6 +19,9 @@
     let af_mb_name = $state("");
     let af_mb_phone = $state("");
 
+    let videoElement;
+    let isMuted = $state(true);
+
     const seoValue = {
         title: "리치분양 - 현장 1등을 위한 최고의 선택!",
         description:
@@ -29,6 +32,10 @@
         image: "https://richby.co.kr/rich-thumb.jpg",
         main: true,
     };
+
+    function toggleSound() {
+        isMuted = !isMuted;
+    }
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -323,8 +330,24 @@
     </div>
 </Modal>
 
-<section class="mx-auto max-w-[1024px]">
-    <video src="/main/first-movie.mp4" autoplay loop playsinline></video>
+<section class="relative mx-auto max-w-[1024px]">
+    <video
+        src="/main/first-movie.mp4"
+        autoplay
+        loop
+        playsinline
+        bind:this={videoElement}
+        bind:muted={isMuted}
+        class="w-full"
+    >
+    </video>
+
+    <button
+        onclick={toggleSound}
+        class="absolute bottom-5 right-5 bg-black/60 text-white px-4 py-2 rounded-lg backdrop-blur-md"
+    >
+        {isMuted ? "🔊 소리 켜기" : "🔇 음소거"}
+    </button>
 </section>
 
 <section
