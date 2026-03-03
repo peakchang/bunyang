@@ -794,16 +794,26 @@
 </div>
 
 <div
-    class="fixed bottom-0 left-0 py-2 w-full border-t border-white bg-[] flex justify-center z-50"
+    class="fixed bottom-0 left-0 w-full border-t border-white bg-[] flex justify-center z-30"
     style="background-image: url('/green-bg.png');"
 >
-    <div class="w-full flex max-w-[230px] md:max-w-[350px]">
+    <div class="w-full flex justify-center md:max-w-[7000px]">
         <a href="TEL:1668-2625">
+            <img src="/main-phone.png" alt="" />
+        </a>
+        <button
+            onclick={() => {
+                modalShow = true;
+            }}
+        >
+            <img src="/main-button.png" alt="" />
+        </button>
+        <!-- <a href="TEL:1668-2625">
             <img
                 src="/main_adcall.png"
                 alt=""
                 class="max-w-full max-h-screen object-contain"
             />
-        </a>
+        </a> -->
     </div>
 </div>
